@@ -1,11 +1,13 @@
 # Examples
 
-Four worked examples demonstrating correct RIPPER behavior.
+Six worked examples demonstrating correct RIPPER behavior.
 
 1. Full risk register — HTML output from the demo project
 2. Top 5 risks — filtered query response
 3. Interactive refinement — rescore exchange
 4. Out-of-scope request — correct handling
+5. Ambient intelligence — web search finding incorporated
+6. Cascade analysis — risk dependency chain
 
 ---
 
@@ -13,9 +15,9 @@ Four worked examples demonstrating correct RIPPER behavior.
 
 **Prompt:** "What are the risks for this project?"
 
-**RIPPER output:** *(self-contained HTML document — full output in `reference/register-style.md`)*
+**RIPPER output:**
 
-RIPPER reads `reference/Project-files/demo-project.md`, applies the identification patterns from `rules.md`, scores each risk, and returns the complete HTML risk register. No clarifying questions are asked. No additional input is required.
+RIPPER reads `reference/Project-files/demo-project.md`, applies the identification patterns from `rules.md`, and returns a complete HTML risk register formatted according to `reference/register-style.md`. No clarifying questions are asked. No additional input is required.
 
 15 risks identified: 4 Critical · 9 High · 2 Medium · 0 Low. Output is sorted critical first. Every risk includes a full detail card with probability rationale, impact rationale, mitigation recommendation, contingency plan, and owner — all grounded in specific facts from the project brief, not generic statements.
 
@@ -77,3 +79,95 @@ No other scores have been changed.
 Critical path identification and schedule development belong to the Schedule Analyst module, which is not part of this build.
 
 What I can do from a risk perspective: I've already scored the schedule-related risks in this register — R01 (hard deadline, score 20), R04 (FCC timeline, score 16), and R05 (customer qualification timelines, score 12 or 16 if manually adjusted). If you want me to analyze which of those risks is most likely to cascade into others, or assess what a slip at a specific milestone would do to the rest of the timeline from a risk exposure standpoint, I can do that.
+
+---
+
+## Example 5: Ambient Intelligence — Trade Exposure Search
+
+**Prompt:** "Run the ambient intelligence checks for this project before I treat the register as final."
+
+**RIPPER output:**
+
+Running P13–P15 checks. Scanning brief for triggers.
+
+**Triggers found:**
+- Named component categories: processor (new, unspecified model), power stage (new, unspecified), PCB fabrication (via standard vendor, location not stated) → activates P13 and P15
+- Named regulatory standards: FCC Part 15 (Bluetooth) → activates P14
+- NEV/LSV regulatory exposure is already assessed and captured in R11 via document-bound analysis
+
+---
+
+**P13 — Supply chain concentration risk:**
+Search protocol requires a specific named component or manufacturer to confirm a concentration signal. The brief identifies "new processor" and "new power stage" as categories, not specific part numbers or suppliers. A targeted supply chain search is not executable without those details.
+**Result: P13 suppressed.** Signal cannot be confirmed at this level of specificity. Rerun this check once the Director of Engineering confirms the specific ICs selected.
+
+---
+
+**P14 — Regulatory landscape in active flux:**
+Searched: "FCC Part 15 Bluetooth 2026," "FCC amendment Bluetooth 5.0 certification."
+Finding: No pending amendments to Part 15 rules affecting Bluetooth 5.0 device certification for the relevant device class. FCC processing times for STA applications are currently consistent with the 8–16 week range already cited in R04 rationale.
+**Result: P14 suppressed.** No active regulatory flux affecting FCC Bluetooth certification within this project window. R04 rationale stands unchanged.
+
+---
+
+**P15 — Trade and tariff exposure:**
+Searched: "PCB tariffs 2026," "electronics tariffs China 2026," "Section 301 PCB import duties."
+Finding: Section 301 tariffs on printed circuit boards manufactured in China remain active at 25% (USTR, maintained through current review cycle). Integrated circuit imports under HTS 8542 are subject to additional levies under ongoing trade policy. Alltrax's PCB fabrication vendor location is not stated in the project brief. At low-to-mid prototype volumes, motor controller PCB fabrication is predominantly performed in China or Taiwan; Taiwan-origin boards are not subject to equivalent tariff exposure.
+**Result: P15 confirmed signal.** If Alltrax's standard PCB vendor is China-based, active 25% tariffs apply to prototype and first production run costs. With no contingency budget (R09) and no formal budget established (R14), a tariff-driven cost increase at the prototype order stage would require owner escalation at the exact moment procurement decisions need to move fastest.
+
+**Adding to register:**
+
+**R16 — PCB fabrication tariff exposure (China-sourced)**
+Category: External / Budget
+Probability: 2 (Unlikely) — Alltrax may use a domestic or Taiwan-based fabricator. Exposure is conditional on vendor geography, which is not confirmed.
+Impact: 3 (Moderate) — A 25% tariff on prototype and first-run PCBs adds meaningful unbudgeted cost on a project with no contingency. If the tariff cost holds up the prototype order while owner approval is sought, the timeline impact compounds the cost impact.
+Risk score: 2 × 3 = **6 (Medium)**
+Source: USTR Section 301 tariff schedule, active as of current review; trade reporting on electronics import duties, Q1–Q2 2026.
+Mitigation: Confirm PCB fabrication vendor's country of manufacture before placing the prototype order. If China-based, evaluate whether a Taiwan or domestic alternative is cost-competitive at prototype volumes given tariff exposure. Document the decision and vendor selection rationale.
+Contingency: If tariff costs materialize, treat PCB fabrication as a candidate for the pre-authorized expedite threshold discussed in R09 — approval latency on a tariff surcharge should not hold up a prototype build.
+Owner: Director of Sales and Operations
+Status: Open
+
+Register updated: R16 added. 15 existing risks unchanged. Total: **16 risks — 4 Critical · 9 High · 3 Medium · 0 Low.**
+
+---
+
+## Example 6: Cascade Analysis
+
+**Prompt:** "Which risks in this register are most likely to cascade into each other if one of them materializes?"
+
+**RIPPER output:**
+
+The register has three cascade chains worth naming explicitly.
+
+---
+
+**Chain 1 — The hardware development sequence (highest sequential exposure)**
+
+R03 → R07 → R10 → R04 → R05 / R06
+
+R03 (components not ordered) is the root node. Until the processor and power stage are ordered, no delivery date exists and all downstream milestones are unanchored. If R03 materializes — components arrive late — every milestone that depends on them slips in sequence: late arrival delays PCB assembly, which delays firmware bring-up (R07); compressed bring-up increases the probability of pre-certification failure (R10); a pre-cert failure delays FCC submission and narrows an already-short grant window (R04); a delayed grant eliminates the sample delivery window that Customer A and B need to complete qualification (R05), which activates the penalty clauses (R06).
+
+This chain runs through five risks in strict sequence with no branches. R03 is the only node where early action breaks the cascade entirely. Every day of delay in ordering components extends the downstream exposure.
+
+---
+
+**Chain 2 — The resource bottleneck (widest simultaneous blast radius)**
+
+R02 → R07, R10, R12, R13
+
+R02 (engineering lead SPOF) does not cascade sequentially — it radiates. If the Director of Engineering loses availability for any sustained period, four risks materialize simultaneously: hardware and firmware bring-up stalls (R07), FCC pre-certification work stalls because the engineer owns the EMC response (R10), power stage integration testing stalls (R12), and form factor verification against SBR dimensions stalls (R13). No sequential fix is possible here because all four depend on the same person. Mitigation for R02 is the only action that covers this entire blast radius.
+
+---
+
+**Chain 3 — The budget gap amplifier**
+
+R14 → R09 → R03
+
+The absence of a formal budget (R14) means procurement decisions require individual owner approvals (R09), which adds latency to component orders at exactly the moment when ordering speed matters most. This chain does not create new risks — it makes R03 more likely by slowing down the decision that would defuse it.
+
+---
+
+**Most dangerous single materialization:** R03. It is the root node of Chain 1, the most time-sensitive risk in the register, and the one with the most direct mitigation available right now — place the orders.
+
+**Highest-uncertainty cascade trigger:** R02. Engineering capacity disruption would materialize four risks simultaneously, with no single mitigation action that absorbs the combined impact.

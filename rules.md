@@ -95,6 +95,7 @@ Trigger: A deliverable is described in outcome terms with no defined technical a
 Category: External
 Default: P3, I4
 Trigger: Project success depends on a vendor, partner, regulatory body, or customer action, and no binding agreement, confirmed timeline, or formal commitment is in place.
+Search calibration: When a specific named vendor is the dependency, search for that vendor's current business status, recent delivery or capacity issues, financial health, and ownership changes. Calibrate probability up if search reveals distress signals, a pattern of delivery failures, or a recent acquisition that could affect continuity. Not applicable when the dependency is a customer action or an unnamed partner.
 
 ---
 
@@ -118,6 +119,7 @@ Category: External
 Default: P3, I5
 Trigger: Project delivery requires approval from a regulatory body (FCC, FDA, NHTSA, etc.) and the approval timeline is not defined or is outside the team's control.
 Calibrate probability down only if the approval is routine, precedented, and already in process with a known timeline.
+Search calibration: When a specific regulatory body or device class is named, search for current processing times and active backlogs for that body, and any pending rule changes for the relevant device category. Calibrate probability up if current processing times exceed the project's approval window; calibrate impact up if a rule change in progress would require redesign of work already underway.
 
 ---
 
@@ -157,6 +159,53 @@ Default: P4, I3
 Trigger: The project must integrate with, extend, or migrate data from an existing system where documentation is incomplete, ownership is unclear, or the system was not designed for the integration being planned.
 Calibrate probability up: if there is no isolated test environment for the legacy system, if the integration requires modifying code with no clear owner, or if a data migration is required with no validated rollback plan.
 Calibrate impact up: if the legacy system is load-bearing for production operations and cannot be taken offline during integration work.
+
+---
+
+**Supply chain concentration risk**
+Category: External
+Default: P2, I4
+Trigger: The project requires specific physical components, materials, or subassemblies where manufacturing is concentrated in a small number of facilities or geographic regions — specialty capacitors, specific ICs, rare earth materials, PCB laminates, battery cells, precision motors. Concentration alone does not trigger this pattern. It fires when the project brief identifies the specific components AND a search reveals an active disruption signal or historically fragile supply path.
+Search protocol: When hardware components are named, search for "[component type] supply chain [current year]", "[component] shortage", "[key manufacturer] production disruption".
+Calibrate probability up: if search confirms an active shortage, factory disruption, or exit of a single dominant supplier. Calibrate impact up: if the component sits on the critical path and no qualified alternative supplier exists. Suppress if search finds no current signal and the component is a commodity with broad manufacturing base.
+
+---
+
+**Regulatory landscape in active flux**
+Category: External
+Default: P2, I4
+Trigger: The project must comply with a named regulatory standard or framework that has pending amendments, contested enforcement, or an upcoming implementation deadline not yet reflected in current design requirements.
+Search protocol: When a standard is named (RoHS, REACH, FCC, CE, UL, NHTSA, FDA, EPA, IEC, ITAR, EAR), search for "[standard name] update [current year]", "[standard] amendment", "[standard] enforcement changes".
+Calibrate probability up: if search finds a pending amendment with a deadline inside the project window, or active enforcement disputes in the project's market sector. Calibrate impact up: if the amendment would require redesign of a completed or in-progress deliverable. Suppress if search confirms the standard is stable with no pending changes in the relevant timeframe.
+
+---
+
+**Trade and tariff exposure**
+Category: External / Budget
+Default: P2, I3
+Trigger: The project sources components, materials, or manufacturing from countries with active or pending trade tensions, tariff schedules, or export control regimes that could affect cost or availability.
+Search protocol: When geographic sourcing or tariff-sensitive component categories are mentioned (PCBs, semiconductors, aluminum, rare earths, finished assemblies from China, Taiwan, Korea, Malaysia, Mexico), search for "tariffs [component category] [current year]", "[country] export restrictions [material]", "import duties [component type]".
+Calibrate probability up: if active tariff changes are announced or in progress. Calibrate impact up: if project budget has no contingency for cost increases, or if export controls could restrict access to the component entirely. Use External/Budget dual category if tariff impact is cost only; use External/Schedule if controls could cut off availability.
+
+---
+
+## External Intelligence Protocol
+
+After the initial document scan using the 12 document-bound patterns, review the project brief for the following triggers before producing the final register. These searches run after P1–P12 analysis is complete — do not delay initial analysis to search first.
+
+**Trigger: Named physical components or materials**
+Any mention of specific component types (capacitors, ICs, PCBs, batteries, motors, connectors, rare earth materials, specialty metals, polymers) activates the supply chain concentration pattern. Run supply chain searches for the named components before finalizing the register.
+
+**Trigger: Named regulatory standards or approval bodies**
+Any mention of a specific standard or body (RoHS, REACH, FCC, CE, UL, NHTSA, FDA, EPA, IEC, ISO, ITAR, EAR) activates the regulatory flux pattern. Run regulatory update searches for the named standard before finalizing the register.
+
+**Trigger: Geographic sourcing or manufacturing references**
+Any mention of a specific country or region for manufacturing, sourcing, or assembly activates the trade exposure pattern. Run tariff and export control searches for the named country and component category before finalizing the register.
+
+**Incorporating search findings:**
+If a search confirms an active risk signal, add it as a scored risk entry. Calibration from search results: active confirmed disruption affecting the specific component, standard, or trade route → P3–P4 probability; recent disruption resolved within 6 months or early-stage signal → P2–P3; no signal found → suppress the pattern for that trigger and do not add a speculative entry.
+
+Cite all web-sourced findings in the risk card rationale: include publication name or source, summary of the finding, and approximate date. Do not add a risk based solely on a search result that cannot be linked to a specific impact on this project's scope, timeline, or budget.
 
 ---
 

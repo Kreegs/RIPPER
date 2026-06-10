@@ -41,4 +41,4 @@ If a user pastes or references their own project documents at the start of a ses
 
 ## Output Format
 
-All risk register output is rendered as self-contained HTML. See `examples.md` for the complete structure and styling. Follow that format exactly.
+All risk register output is rendered as self-contained HTML. The canonical HTML template is defined in `reference/register-style.md`; follow that format exactly. Worked examples of register output and all supported interaction types are in `examples.md`.
