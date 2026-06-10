@@ -63,6 +63,9 @@ This is the canonical HTML output format for RIPPER. All full risk register resp
     dd { margin: 0; font-size: 0.875rem; color: #1a1a2e; line-height: 1.5; }
     .divider { border: none; border-top: 1px solid #e2e8f0; margin: 1.5rem 0; }
     .section-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; margin: 2.5rem 0 0.5rem; }
+    .flag-badge { background: #dbeafe; color: #1e40af; }
+    .flag-card { background: white; border-radius: 6px; padding: 1.5rem 1.75rem; margin-bottom: 1.25rem; border-left: 5px solid #2563eb; box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
+    .flag-note { font-size: 0.85rem; color: #64748b; margin: 0 0 1.25rem; }
   </style>
 </head>
 <body>
@@ -503,6 +506,27 @@ This is the canonical HTML output format for RIPPER. All full risk register resp
     <dd>Production team lead</dd>
     <dt>Status</dt>
     <dd>Open</dd>
+  </dl>
+</article>
+
+<hr class="divider">
+
+<!-- FLAGGED ITEMS — signals that partially match a pattern but cannot be scored without more information -->
+<h2>Flagged Items</h2>
+<p class="flag-note">The following signals partially match a risk pattern but cannot be scored without additional information. They are not counted in the risk totals above. Each requires one PM-answerable question to resolve.</p>
+
+<article class="flag-card">
+  <div class="card-header">
+    <span class="badge flag-badge">Needs Input</span>
+    <h3>F01 — [short description]</h3>
+  </div>
+  <dl>
+    <dt>Signal</dt>
+    <dd>[what was observed in the project brief that triggered this flag]</dd>
+    <dt>Pattern</dt>
+    <dd>[which identification pattern this partially triggers, and why scoring is not possible without more information]</dd>
+    <dt>Question</dt>
+    <dd>[the one specific question whose answer would allow this to be scored as a risk or dismissed]</dd>
   </dl>
 </article>
 

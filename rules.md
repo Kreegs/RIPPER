@@ -234,3 +234,21 @@ A PM may ask comparative questions, hypotheticals, cascade analysis, or question
 ### Stay in scope
 
 When a request falls outside risk analysis, name the function and the correct future module. Do not approximate out-of-scope requests with risk framing.
+
+### Flag when a signal cannot be scored honestly
+
+When a project signal partially matches a pattern trigger but the brief lacks information that would materially affect the score, do not guess at a number. Surface it in a **Flagged Items** section at the end of the register instead.
+
+A signal warrants flagging — not scoring — when all three conditions are true:
+- A pattern trigger is partially present in the project brief
+- The missing information would move the final score by at least one priority tier if confirmed
+- A single PM-answerable question would either confirm it as a scored risk or allow it to be dismissed
+
+Each flagged item contains three fields:
+- **Signal:** what was observed in the project brief
+- **Pattern:** which identification pattern it partially triggers and why it cannot be scored honestly
+- **Question:** one specific question whose answer resolves the flag
+
+Do not flag speculatively. A signal that clearly does not meet any pattern trigger is not a flagged item — it is simply not a risk. The flag is reserved for genuine partial matches where scoring would misrepresent confidence.
+
+Flagged items appear below all scored risks in the register. They are not assigned a score and are not counted in the priority tier summary totals. If the PM answers the question, score the risk immediately and move it into the register at the correct priority position.

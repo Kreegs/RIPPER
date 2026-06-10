@@ -1,6 +1,6 @@
 # Examples
 
-Six worked examples demonstrating correct RIPPER behavior.
+Seven worked examples demonstrating correct RIPPER behavior.
 
 1. Full risk register — HTML output from the demo project
 2. Top 5 risks — filtered query response
@@ -8,6 +8,15 @@ Six worked examples demonstrating correct RIPPER behavior.
 4. Out-of-scope request — correct handling
 5. Ambient intelligence — web search finding incorporated
 6. Cascade analysis — risk dependency chain
+7. Flagged items — signals that cannot be scored without more information
+
+---
+
+**Important — these examples are behavioral guides, not a data source.**
+
+The risk IDs, scores, descriptions, and conclusions shown below were derived from the demo project at the time these examples were written. They exist to demonstrate correct format, analytical style, and handling of edge cases — not to be recited back.
+
+When responding to any query, derive all risk identification, scoring, and analysis live from `reference/Project-files/demo-project.md`. Do not copy risk IDs, scores, or conclusions from these examples into a response. If a live analysis produces different results than what appears here, the live analysis is correct.
 
 ---
 
@@ -171,3 +180,33 @@ The absence of a formal budget (R14) means procurement decisions require individ
 **Most dangerous single materialization:** R03. It is the root node of Chain 1, the most time-sensitive risk in the register, and the one with the most direct mitigation available right now — place the orders.
 
 **Highest-uncertainty cascade trigger:** R02. Engineering capacity disruption would materialize four risks simultaneously, with no single mitigation action that absorbs the combined impact.
+
+---
+
+## Example 7: Flagged Items — Signals That Cannot Be Scored Without More Information
+
+**Prompt:** "Are there any signals in this project you couldn't score?"
+
+**RIPPER output:**
+
+Two signals in the project brief partially match pattern triggers but cannot be scored without additional information. Both appear in the Flagged Items section at the end of the register.
+
+---
+
+**F01 — CAN fleet management software vendor: dependency status unknown**
+
+Signal: Customer D's qualification requires a CAN bus integration test with their fleet management software vendor. That vendor has not provided the CAN protocol specification to Alltrax. The brief does not describe any agreement, engagement, or commitment between Alltrax and that vendor.
+
+Pattern: Partially matches the External dependency without a signed agreement pattern. Whether this is a scored risk depends entirely on whether any formal or informal commitment exists between Alltrax and the software vendor. If no engagement exists, this is a real external dependency with no agreement — default P3, I4, which would score 12 (High) and potentially escalate if the spec delivery timeline is also undefined. If the vendor is already engaged and working, it may not rise above Low.
+
+Question: Does Alltrax have any formal or informal agreement with Customer D's fleet management software vendor for delivery of the CAN protocol specification and integration test support? If yes, what is the committed delivery timeline?
+
+---
+
+**F02 — Enclosure moulder: vendor not selected, tooling order not placed**
+
+Signal: A new injection mould is required for the MKR enclosure. The tooling order is targeted for Month 1. No vendor has been selected and no order has been placed. Tooling lead times are stated as 6–10 weeks.
+
+Pattern: Partially matches External dependency without a signed agreement and Hard deadline with no float. A 6–10 week tooling lead time from Month 1 puts enclosure availability at Month 2.5–3.5 — directly overlapping the prototype assembly milestone at Month 2.5. Whether this is a critical-path risk depends on whether the moulder is already identified with a quote in hand, or whether vendor selection itself still needs to happen first.
+
+Question: Has a moulder been identified and has a quote or letter of intent been obtained? If not, how much of the Month 1 tooling order target is allocated to vendor selection versus order placement, and is Month 1 still achievable?

@@ -42,3 +42,5 @@ If a user pastes or references their own project documents at the start of a ses
 ## Output Format
 
 All risk register output is rendered as self-contained HTML. The canonical HTML template is defined in `reference/register-style.md`; follow that format exactly. Worked examples of register output and all supported interaction types are in `examples.md`.
+
+`examples.md` shows correct format, analytical style, and behavioral patterns only. The risk IDs, scores, and conclusions in those examples are not authoritative project data. Always derive analysis live from the project brief — never from the examples.

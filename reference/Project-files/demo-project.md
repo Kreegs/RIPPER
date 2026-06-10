@@ -8,13 +8,13 @@
 **Document status:** Approved
 **Last updated:** June 2026
 
-Alltrax Inc. will design, certify, and manufacture the MKR motor controller as a direct replacement for the SBR series. Two critical electronic components used exclusively in the SBR have reached manufacturer end-of-life and can no longer be sourced. Current SBR component inventory supports approximately 8 months of production at current run rates. The MKR must be production-ready and customer-qualified before that inventory is exhausted.
+Alltrax Inc. will design, certify, and manufacture the MKR motor controller as a direct replacement for the SBR series. Two critical electronic components used exclusively in the SBR have reached manufacturer end-of-life and can no longer be sourced. Current SBR component inventory supports approximately 10 months of production at current run rates. The MKR must be production-ready and customer-qualified before that inventory is exhausted.
 
 ---
 
 ## Background
 
-The SBR has been in production for over a decade. It is an aging design with a complex manufacturing process that carries a high defect rate relative to current product lines. Component EOL presents a forced transition, but also an opportunity to update the hardware, reduce manufacturing complexity, and meet new customer feature requests.
+The SBR has been in production for over a decade. It is an aging design with a complex manufacturing process that carries a high defect rate relative to current product lines. Component EOL presents a forced transition, but also an opportunity to modernize the hardware platform, reduce manufacturing complexity, and address new customer interface requirements that have emerged since the SBR was designed.
 
 The MKR will replace the SBR on a one-to-one basis for all four affected OEM customers. It must maintain full backward compatibility in mounting dimensions, connector placement, and wire harness interface. Customers will not modify their vehicle designs or tooling to accommodate this transition.
 
@@ -38,76 +38,83 @@ The single-PCB approach reduces design complexity and allows shared firmware wit
 - These constraints are contractual. No exceptions without written customer approval and contract amendment.
 
 **Key design updates over SBR:**
-- New processor replacing EOL component 1
-- New power stage replacing EOL component 2
+- New processor: STM32G474RET6 (STMicroelectronics) — replacing EOL component 1
+- New power stage: DRV8353RS gate driver (Texas Instruments) with WSP4953 MOSFETs (Onsemi) — replacing EOL component 2
+- New injection-moulded enclosure (new tooling required; existing SBR mould is not compatible with updated internal layout)
 - Simplified PCB layout targeting reduced assembly time and defect rate
 - Bluetooth 5.0 module (MKR-BT SKU)
+- CAN 2.0B interface (required by Customer D for fleet management integration — not present on SBR)
 - Updated thermal management
+
+**PCB fabrication:**
+Prototype and production PCBs are fabricated and assembled through Alltrax's contract manufacturer in Shenzhen, China. Prototype lead times are approximately 3–4 weeks from Gerber submission.
 
 ---
 
 ## Affected OEM Customers
 
-Four customers currently purchasing SBR units are affected by this transition. All four have active supply agreements with Alltrax containing continuity of supply clauses and penalty provisions for unplanned disruption.
+Four customers currently purchasing SBR units are affected by this transition. All four have active supply agreements with Alltrax.
 
-**Customer A: GreenTech Mobility**
-- Application: light industrial electric vehicle
+**Customer A: Meridian Industrial Vehicles**
+- Application: electric burden carrier and tugger
 - SKU required: MKR-BT
-- Annual volume: approximately 800 units
-- Contract penalty: 90-day written notice required before any product change. Failure to notify triggers a per-unit penalty on all affected orders.
-- Qualification requirement: full vehicle-level validation required before production approval. Estimated 6-8 weeks once sample units are received.
+- Annual volume: approximately 950 units
+- Contract terms: 60-day written notice required before any product change. Failure to provide notice triggers a per-unit penalty on affected orders.
+- Qualification requirement: bench and vehicle-level validation required before production approval. Estimated 5–7 weeks once sample units are received.
 
-**Customer B: Pacific Electric Vehicles**
+**Customer B: Apex Electric Platforms**
 - Application: NEV/LSV platform
 - SKU required: MKR-BT
-- Annual volume: approximately 1,200 units
-- Contract penalty: liquidated damages clause if supply is interrupted for more than 30 consecutive days.
-- Qualification requirement: bench and vehicle validation. Estimated 4-6 weeks once sample units are received. NEV/LSV application may trigger additional regulatory review on their end.
+- Annual volume: approximately 1,100 units
+- Contract terms: liquidated damages clause if supply is interrupted for more than 21 consecutive days.
+- Qualification requirement: bench validation, vehicle validation, and internal homologation review. Estimated 8–10 weeks once sample units are received. NEV/LSV application may require additional regulatory review on their end.
 
-**Customer C: Summit Industrial Equipment**
-- Application: electric tugger and ground support vehicle
+**Customer C: Harbor Ground Support**
+- Application: electric ground support vehicle
 - SKU required: MKR (no Bluetooth)
-- Annual volume: approximately 400 units
-- Contract penalty: 60-day notice clause. Penalty is credit toward future orders.
-- Qualification requirement: bench validation only. Estimated 2-3 weeks once sample units are received.
+- Annual volume: approximately 350 units
+- Contract terms: 45-day notice clause. No formal monetary penalty; breach triggers Customer C's right of early termination.
+- Qualification requirement: bench validation only. Estimated 2–3 weeks once sample units are received.
+- Stakeholder note: Customer C's primary stakeholder has repeatedly objected to the SBR transition, stating a preference for Alltrax to continue SBR production. Customer C's engineering lead understands the EOL situation and supports the MKR transition. The two contacts are not aligned, and this friction has already slowed internal communications. Qualification sign-off requires approval from the primary stakeholder.
 
-**Customer D: Coastal Cart Company**
-- Application: electric golf and utility cart
-- SKU required: MKR (no Bluetooth)
-- Annual volume: approximately 600 units
-- Contract penalty: no explicit penalty clause but master supply agreement requires 90-day notice of product changes.
-- Qualification requirement: bench and vehicle validation. Estimated 4-5 weeks once sample units are received.
+**Customer D: Pinnacle Utility Vehicles**
+- Application: electric utility and maintenance vehicle
+- SKU required: MKR (no Bluetooth, with CAN bus interface)
+- Annual volume: approximately 700 units
+- Contract terms: master supply agreement requires 90-day notice of product changes. No explicit penalty clause.
+- Qualification requirement: bench and vehicle validation, plus CAN bus integration test with Customer D's fleet management software. Estimated 5–6 weeks once sample units are received. Customer D's fleet management software vendor has not yet provided the CAN protocol specification to Alltrax.
 
 ---
 
 ## Timeline and Milestones
 
 **Project start:** Month 0
-**Hard deadline:** Month 8 (SBR component inventory exhausted)
+**Hard deadline:** Month 10 (SBR component inventory exhausted)
 
 | Milestone | Target | Notes |
 |-----------|--------|-------|
 | Hardware design complete | Month 2 | Includes schematic, layout, BOM |
+| Enclosure tooling order placed | Month 1 | 6–10 week lead time; must not slip |
 | PCB fabrication and assembly (proto units) | Month 3 | First article build |
 | Firmware bring-up complete | Month 3.5 | Basic functionality on proto hardware |
 | Internal validation complete | Month 4 | All internal test criteria met |
 | FCC pre-certification testing | Month 4 | MKR-BT only. External test lab. |
-| FCC submission | Month 4.5 | Contingent on pre-cert results |
-| FCC grant received | Month 6 | Target. Timeline outside Alltrax control. |
-| OEM sample units shipped | Month 5 | MKR (no BT) samples. MKR-BT samples contingent on FCC. |
-| Customer A qualification complete | Month 6.5 | GreenTech Mobility |
-| Customer B qualification complete | Month 7 | Pacific Electric Vehicles |
-| Customer C qualification complete | Month 6 | Summit Industrial |
-| Customer D qualification complete | Month 6.5 | Coastal Cart Company |
-| Production build complete | Month 7.5 | First production run |
-| SBR cutover complete | Month 8 | All customers transitioned to MKR |
+| FCC submission | Month 5 | Contingent on pre-cert results |
+| FCC grant received | Month 7 | Target. Timeline outside Alltrax control. |
+| OEM sample units shipped | Month 5.5 | MKR and CAN samples. MKR-BT samples contingent on FCC. |
+| Customer A qualification complete | Month 7.5 | Meridian Industrial Vehicles |
+| Customer B qualification complete | Month 9.5 | Apex Electric Platforms — 8–10 week window after FCC-gated sample delivery |
+| Customer C qualification complete | Month 6 | Harbor Ground Support |
+| Customer D qualification complete | Month 7.5 | Pinnacle Utility Vehicles |
+| Production build complete | Month 9 | First production run |
+| SBR cutover complete | Month 10 | All customers transitioned to MKR |
 
 ---
 
 ## Resource Plan
 
 **Engineering lead:** Director of Engineering
-Primary designer for hardware and firmware. No dedicated project engineering resource. Engineering lead is shared with ongoing production support, warranty escalations, and two other active development projects.
+Primary designer for hardware and firmware. No dedicated project engineering resource. Engineering lead is shared with ongoing production support, warranty escalations, and two other active development projects — one of which is currently in pre-production validation and requires active engineering involvement through Month 2.
 
 **Operations/PM:** Director of Sales and Operations
 Owns customer communication, contract management, qualification coordination, and overall project timeline.
@@ -116,39 +123,37 @@ Owns customer communication, contract management, qualification coordination, an
 Responsible for prototype assembly, first article build, and production ramp. Capacity has not been formally reserved for MKR builds. Scheduling is managed alongside existing production orders.
 
 **External resources:**
-- PCB fabrication vendor: standard vendor, lead times approximately 3-4 weeks for prototype quantities
-- FCC test lab: external lab required for Bluetooth certification. Lab selection and scheduling is pending.
-- Component suppliers: new processor and power stage components identified. Long lead times possible. Orders not yet placed.
+- PCB contract manufacturer (Shenzhen, China): Alltrax's standard vendor for PCB fabrication and SMT assembly. Prototype lead times approximately 3–4 weeks from Gerber submission.
+- Enclosure moulder: new injection mould tooling required. Vendor not yet selected. Tooling lead times typically 6–10 weeks.
+- FCC test lab: external lab required for Bluetooth pre-certification testing and formal submission. Lab has not been selected or scheduled.
+- Component suppliers: STM32G474RET6, DRV8353RS, and WSP4953 have been identified and specified. Purchase orders have not been placed. WSP4953 (Onsemi) carries a 26-week lead time for orders exceeding 200 units. Quantities of 200 units or fewer are available at standard lead times and are sufficient for prototype and validation builds. Production run quantities will require a separate order placed well in advance.
 
 ---
 
 ## Budget
 
-Formal budget has not been finalized. Known cost categories:
+A project budget of $170,000 has been approved by the owner. This figure is a hard cap. The owner has stated that overruns will not be approved without a formal scope change request, which requires owner sign-off and a minimum five-business-day review cycle.
 
-- PCB design and fabrication (prototype and first production run)
-- Component procurement including safety stock for new EOL-risk components
-- FCC pre-certification testing (estimated $8,000-15,000 depending on lab and test scope)
-- FCC certification filing fees
+Known cost categories within the approved budget:
+- Enclosure injection mould tooling: $30,000 (fixed, committed cost)
+- PCB fabrication and SMT assembly (prototype and first production run)
+- Component procurement including safety stock
+- FCC pre-certification testing and certification filing fees (estimated $8,000–$15,000 depending on lab and test scope)
+- Customer sample units (4 customers, approximately 2–4 units each)
 - Engineering time (internal, not separately budgeted)
-- Customer sample units (4 customers, estimated 2-5 units each)
 
-No contingency budget has been allocated. Cost overruns will require owner approval.
+No contingency line has been allocated within the $170,000. The mould tooling commitment leaves $140,000 for all remaining project costs.
 
 ---
 
-## Known Constraints and Risks (Initial List)
+## Known Constraints
 
-The following are known at project start. This list is not exhaustive and is intended to seed the risk analysis, not replace it.
+The following are known at project start. This list is not exhaustive.
 
-- 8-month hard deadline is fixed. It is driven by physical inventory, not a business preference.
-- FCC certification timeline is not within Alltrax control. Typical grant timelines run 8-16 weeks from submission. Pre-certification failures require retest and resubmission.
-- Engineering lead has no dedicated capacity for this project. Competing priorities exist.
-- Customer qualification timelines are driven by customer availability and internal processes, not Alltrax.
-- Long lead time components have not been ordered. Supply chain risk is unquantified.
-- No contingency budget exists.
-- Contract penalty clauses are active for all four customers. Notification requirements vary.
-- Pacific Electric Vehicles' NEV/LSV application may introduce regulatory dependencies outside this project's scope.
+- 10-month hard deadline is fixed. It is driven by physical SBR inventory, not a business preference.
+- Engineering lead has no dedicated capacity for this project and carries a competing pre-production commitment through at least Month 2.
+- CAN bus interface is a new capability not present on the SBR. Customer D's fleet management software vendor has not provided the CAN protocol specification; acceptance criteria for the CAN integration test have not been defined.
+- FCC certification is required for the MKR-BT SKU. Timeline is outside Alltrax control.
 
 ---
 
@@ -159,4 +164,5 @@ The following are known at project start. This list is not exhaustive and is int
 - FCC grant received for MKR-BT before MKR-BT ships to production customers
 - No contract penalties triggered
 - Form factor constraints met for all customers with no contract amendments required
+- CAN bus interface validated by Customer D before cutover
 - Manufacturing defect rate lower than SBR baseline
