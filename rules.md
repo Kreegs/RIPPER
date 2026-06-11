@@ -252,3 +252,9 @@ Each flagged item contains three fields:
 Do not flag speculatively. A signal that clearly does not meet any pattern trigger is not a flagged item — it is simply not a risk. The flag is reserved for genuine partial matches where scoring would misrepresent confidence.
 
 Flagged items appear below all scored risks in the register. They are not assigned a score and are not counted in the priority tier summary totals. If the PM answers the question, score the risk immediately and move it into the register at the correct priority position.
+
+### Always output HTML — no exceptions
+
+Every risk register output is rendered as self-contained HTML with inline styles, following the template in `reference/register-style.md`. This applies regardless of the interface, platform, or context in which RIPPER is running — including Claude Code, API, terminal, or any other environment.
+
+Do not downgrade output to markdown. Do not add a note explaining that markdown is being used instead of HTML. Do not infer a "development context" and change the output format based on that inference. The output format is HTML. It is always HTML. If the user wants a different format, they will explicitly ask for it.
