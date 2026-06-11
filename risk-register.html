@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Risk Register — MKR Motor Controller Development and SBR Migration</title>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; max-width: 1100px; margin: 0 auto; padding: 2rem; color: #1a1a2e; background: #f8f9fa; }
+    header { background: #1a1a2e; color: white; padding: 1.75rem 2rem; border-radius: 8px; margin-bottom: 2rem; }
+    header h1 { margin: 0 0 1rem 0; font-size: 1.5rem; font-weight: 700; }
+    .meta { border-collapse: collapse; color: #cbd5e1; font-size: 0.85rem; }
+    .meta th { text-align: left; font-weight: 400; padding: 0.15rem 1.25rem 0.15rem 0; color: #94a3b8; }
+    .meta td { font-weight: 500; color: #e2e8f0; }
+    .summary { display: flex; gap: 0.75rem; margin-top: 1.25rem; flex-wrap: wrap; align-items: center; }
+    .badge { display: inline-block; padding: 0.3rem 0.85rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+    .critical { background: #fee2e2; color: #991b1b; }
+    .high { background: #ffedd5; color: #9a3412; }
+    .medium { background: #fef9c3; color: #854d0e; }
+    .low { background: #dcfce7; color: #166534; }
+    .total { font-size: 0.85rem; color: #94a3b8; margin-left: 0.5rem; }
+    h2 { font-size: 1.1rem; color: #1a1a2e; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.4rem; margin: 2rem 0 1rem; }
+    table.register { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    table.register th { background: #1e293b; color: #e2e8f0; padding: 0.65rem 0.75rem; text-align: left; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    table.register td { padding: 0.55rem 0.75rem; border-bottom: 1px solid #e2e8f0; vertical-align: middle; }
+    table.register tr:hover td { background: #f1f5f9; }
+    table.register a { color: #2563eb; text-decoration: none; font-weight: 700; font-size: 0.8rem; }
+    .score-cell { font-weight: 700; font-size: 0.95rem; }
+    .risk-card { background: white; border-radius: 6px; padding: 1.5rem 1.75rem; margin-bottom: 1.25rem; border-left: 5px solid #ccc; box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
+    .risk-card.critical { border-left-color: #dc2626; }
+    .risk-card.high { border-left-color: #ea580c; }
+    .card-header { display: flex; align-items: baseline; gap: 0.75rem; margin-bottom: 1.25rem; }
+    .card-header h3 { margin: 0; font-size: 1rem; color: #1a1a2e; }
+    dl { display: grid; grid-template-columns: 170px 1fr; gap: 0.6rem 1.25rem; margin: 0; }
+    dt { font-weight: 600; color: #64748b; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; padding-top: 0.15rem; }
+    dd { margin: 0; font-size: 0.875rem; color: #1a1a2e; line-height: 1.5; }
+    .divider { border: none; border-top: 1px solid #e2e8f0; margin: 1.5rem 0; }
+    .section-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; margin: 2.5rem 0 0.5rem; }
+    .scope-note { font-size: 0.8rem; color: #64748b; background: #f1f5f9; border-radius: 4px; padding: 0.5rem 0.85rem; margin-bottom: 1.5rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Project Risk Register — Top 5 Risks</h1>
+  <table class="meta">
+    <tr><th>Project</th><td>MKR Motor Controller Development and SBR Migration — KreegCo</td></tr>
+    <tr><th>Analysis date</th><td>June 2026</td></tr>
+    <tr><th>Input source</th><td>reference/Project-files/demo-project.md</td></tr>
+    <tr><th>Scope</th><td>Five highest-scoring risks. Full register contains 15 identified risks.</td></tr>
+  </table>
+  <div class="summary">
+    <span class="badge critical">Critical: 4</span>
+    <span class="badge high">High: 1</span>
+    <span class="total">5 risks shown</span>
+  </div>
+</header>
+
+<h2>Risk Summary</h2>
+<table class="register">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Risk Description</th>
+      <th>Category</th>
+      <th>Probability</th>
+      <th>Impact</th>
+      <th>Score</th>
+      <th>Priority</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><a href="#R01">R01</a></td><td>8-month hard deadline with no float</td><td>Schedule</td><td>4</td><td>5</td><td class="score-cell">20</td><td><span class="badge critical">Critical</span></td><td>Open</td></tr>
+    <tr><td><a href="#R02">R02</a></td><td>Engineering lead is sole designer with no dedicated capacity</td><td>Resource</td><td>4</td><td>5</td><td class="score-cell">20</td><td><span class="badge critical">Critical</span></td><td>Open</td></tr>
+    <tr><td><a href="#R03">R03</a></td><td>Key components not yet ordered; long lead times likely</td><td>External</td><td>4</td><td>5</td><td class="score-cell">20</td><td><span class="badge critical">Critical</span></td><td>Open</td></tr>
+    <tr><td><a href="#R04">R04</a></td><td>FCC certification timeline outside KreegCo control</td><td>External</td><td>4</td><td>4</td><td class="score-cell">16</td><td><span class="badge critical">Critical</span></td><td>Open</td></tr>
+    <tr><td><a href="#R05">R05</a></td><td>Customer qualification timelines driven by customers, not KreegCo</td><td>External</td><td>3</td><td>4</td><td class="score-cell">12</td><td><span class="badge high">High</span></td><td>Open</td></tr>
+  </tbody>
+</table>
+
+<h2>Risk Details</h2>
+
+<p class="section-label">Critical</p>
+
+<article id="R01" class="risk-card critical">
+  <div class="card-header">
+    <span class="badge critical">Critical — Score 20</span>
+    <h3>R01 — 8-month hard deadline with no float</h3>
+  </div>
+  <dl>
+    <dt>Description</dt>
+    <dd>The 8-month project deadline is fixed by physical SBR component inventory. When inventory is exhausted, SBR production stops regardless of MKR readiness. This is a physical constraint, not a business preference. There is no float on this deadline.</dd>
+    <dt>Category</dt>
+    <dd>Schedule</dd>
+    <dt>Probability</dt>
+    <dd>4 (Likely) — The timeline contains multiple sequential external dependencies — FCC certification, four separate customer qualifications — each of which could individually cause a slip. Cascading delays are more likely than not over an 8-month window.</dd>
+    <dt>Impact</dt>
+    <dd>5 (Critical) — If MKR is not production-ready before SBR inventory is exhausted, KreegCo cannot fulfill orders for any of the four OEM customers simultaneously, triggering contract penalties and supply disruption across all active OEM relationships.</dd>
+    <dt>Mitigation</dt>
+    <dd>Build a full project schedule mapping all milestones against the Month 10 constraint. Identify the critical path. Target Month 9 as the internal completion gate for all production readiness activities, preserving a 4-week operational buffer.</dd>
+    <dt>Contingency</dt>
+    <dd>If a slip becomes likely, prioritize customers with shortest qualification lead times (Customer C — Harbor Ground Support: 2–3 weeks) for earliest cutover. Assess whether temporary bridge supply or inventory reallocation can cover the highest-volume customers during a transition gap.</dd>
+    <dt>Owner</dt>
+    <dd>Director of Sales and Operations</dd>
+    <dt>Status</dt>
+    <dd>Open</dd>
+  </dl>
+</article>
+
+<article id="R02" class="risk-card critical">
+  <div class="card-header">
+    <span class="badge critical">Critical — Score 20</span>
+    <h3>R02 — Engineering lead is sole designer with no dedicated capacity</h3>
+  </div>
+  <dl>
+    <dt>Description</dt>
+    <dd>The Director of Engineering is the sole hardware and firmware designer for this project. No dedicated project engineering resource exists. This individual simultaneously owns production support, warranty escalations, and two other active development projects — one of which is currently in pre-production validation requiring active engineering involvement through Month 2.</dd>
+    <dt>Category</dt>
+    <dd>Resource</dd>
+    <dt>Probability</dt>
+    <dd>4 (Likely) — Four concurrent responsibilities over a 10-month timeline makes capacity conflicts highly probable. Any production support escalation or warranty issue will compete directly with MKR milestone work.</dd>
+    <dt>Impact</dt>
+    <dd>5 (Critical) — Hardware design, PCB layout, and firmware development cannot proceed without this individual. Delay at any engineering milestone — schematic, layout, bring-up, validation — cascades to every downstream milestone including FCC testing and customer samples.</dd>
+    <dt>Mitigation</dt>
+    <dd>Formally allocate a defined percentage of this individual's capacity to MKR and document it. Sequence competing project commitments to protect MKR milestones at Month 2 (hardware design complete) and Month 3.5 (firmware bring-up). Evaluate whether any tasks — PCB layout review, test fixture design, documentation — can be offloaded to a contract resource.</dd>
+    <dt>Contingency</dt>
+    <dd>If engineering lead availability is disrupted, engage a contract hardware or firmware engineer immediately. Identify candidate firms before the project begins rather than searching under timeline pressure.</dd>
+    <dt>Owner</dt>
+    <dd>Owner (project sponsor)</dd>
+    <dt>Status</dt>
+    <dd>Open</dd>
+  </dl>
+</article>
+
+<article id="R03" class="risk-card critical">
+  <div class="card-header">
+    <span class="badge critical">Critical — Score 20</span>
+    <h3>R03 — Key components not yet ordered; long lead times likely</h3>
+  </div>
+  <dl>
+    <dt>Description</dt>
+    <dd>The new processor (STM32G474RET6) and power stage (DRV8353RS gate driver + WSP4953 MOSFETs) — the two component sets replacing EOL SBR parts — have been identified but purchase orders have not been placed. The WSP4953 carries a stated 26-week lead time for orders exceeding 200 units. PCB fabrication is targeted at Month 3, meaning components must arrive substantially before that milestone.</dd>
+    <dt>Category</dt>
+    <dd>External</dd>
+    <dt>Probability</dt>
+    <dd>4 (Likely) — Long lead times on electronic components are the industry norm, and the WSP4953's 26-week lead time is already documented. No order placed means no confirmed delivery date. The longer the delay in ordering, the higher the probability of a timeline impact.</dd>
+    <dt>Impact</dt>
+    <dd>5 (Critical) — Without key components, prototype PCB assembly cannot begin. Every downstream milestone — firmware bring-up, internal validation, FCC testing, customer sample units — is blocked until components arrive. A 26-week lead time on the WSP4953 started today extends past Month 6 of the project.</dd>
+    <dt>Mitigation</dt>
+    <dd>Place purchase orders for the STM32G474RET6, DRV8353RS, and WSP4953 immediately. For the WSP4953, split the order: place a production-quantity order now to lock in lead time, and source ≤200 units through standard channels for prototype and validation builds. Confirm delivery dates before finalizing the project schedule.</dd>
+    <dt>Contingency</dt>
+    <dd>If lead times exceed the available window, assess expedite options through authorized distributors. Any component substitution at this stage has design implications — pin compatibility, thermal characteristics, and firmware driver support must all be re-evaluated before a substitute is committed.</dd>
+    <dt>Owner</dt>
+    <dd>Director of Engineering</dd>
+    <dt>Status</dt>
+    <dd>Open</dd>
+  </dl>
+</article>
+
+<article id="R04" class="risk-card critical">
+  <div class="card-header">
+    <span class="badge critical">Critical — Score 16</span>
+    <h3>R04 — FCC certification timeline outside KreegCo control</h3>
+  </div>
+  <dl>
+    <dt>Description</dt>
+    <dd>FCC certification is required for the MKR-BT SKU before it can ship to production customers. Typical FCC grant timelines run 8–16 weeks from submission. The project targets submission at Month 5 and grant receipt at Month 7 — a 2-month window that sits at the low end of the typical range. Customer A (Meridian Industrial Vehicles) and Customer B (Apex Electric Platforms) both require the MKR-BT SKU and cannot begin qualification until FCC-gated samples are received.</dd>
+    <dt>Category</dt>
+    <dd>External</dd>
+    <dt>Probability</dt>
+    <dd>4 (Likely) — The target grant window is tight against the minimum typical timeline. The FCC test lab has not been selected or scheduled, adding further lead time risk on top of the review timeline. Any pre-certification failure that delays submission compounds the exposure.</dd>
+    <dt>Impact</dt>
+    <dd>4 (Major) — FCC grant delay holds MKR-BT samples from Customer A (5–7 weeks to qualify) and Customer B (8–10 weeks to qualify). Customer B's qualification window, which already runs to Month 9.5, has no slack for a delayed sample start. A grant delay past Month 7 eliminates the qualification buffer for both customers simultaneously.</dd>
+    <dt>Mitigation</dt>
+    <dd>Engage an FCC test lab immediately — lab scheduling adds lead time on top of the review timeline. Review FCC requirements during PCB layout, not after fabrication. Follow Bluetooth module manufacturer reference layout exactly. Design the pre-certification testing window to allow one correction cycle before formal submission.</dd>
+    <dt>Contingency</dt>
+    <dd>If grant is delayed beyond Month 7, assess whether Customer A and B can accept MKR (non-BT SKU) as interim supply to avoid disruption, with MKR-BT shipments to follow once certified. Begin this conversation by Month 5 — not after the delay is confirmed.</dd>
+    <dt>Owner</dt>
+    <dd>Director of Engineering / Director of Sales and Operations</dd>
+    <dt>Status</dt>
+    <dd>Open</dd>
+  </dl>
+</article>
+
+<hr class="divider">
+
+<p class="section-label">High</p>
+
+<article id="R05" class="risk-card high">
+  <div class="card-header">
+    <span class="badge high">High — Score 12</span>
+    <h3>R05 — Customer qualification timelines driven by customers, not KreegCo</h3>
+  </div>
+  <dl>
+    <dt>Description</dt>
+    <dd>All four OEM customers must complete qualification before approving MKR for production. Qualification timelines are set by each customer's internal processes and engineering availability: Customer A needs 5–7 weeks, Customer B needs 8–10 weeks (and is FCC-gated), Customer C needs 2–3 weeks, Customer D needs 5–6 weeks plus a CAN bus integration test dependent on a protocol specification not yet provided by Customer D's fleet management software vendor. Each must complete before the Month 10 cutover.</dd>
+    <dt>Category</dt>
+    <dd>External</dd>
+    <dt>Probability</dt>
+    <dd>3 (Possible) — Customers are motivated to qualify because they face supply disruption if they don't. However, their internal scheduling is outside KreegCo control and cannot be contracted or accelerated unilaterally.</dd>
+    <dt>Impact</dt>
+    <dd>4 (Major) — A customer that does not complete qualification before Month 10 cannot receive MKR. KreegCo cannot continue shipping SBR once inventory is exhausted. Either outcome activates contract penalty provisions. Customer D carries additional risk: if the CAN protocol specification is not delivered by Customer D's fleet management vendor, acceptance criteria for the CAN integration test cannot be defined, and Customer D's qualification cannot be completed regardless of MKR readiness.</dd>
+    <dt>Mitigation</dt>
+    <dd>Issue formal product change notifications to all four customers immediately and align sample delivery dates with their earliest qualification start windows. For Customer D, issue a separate written request to the fleet management software vendor for the CAN protocol specification and set a deadline of Month 2. Establish a qualification status checkpoint at Month 7 for all customers.</dd>
+    <dt>Contingency</dt>
+    <dd>If a customer is at risk of missing qualification by Month 8, escalate directly and assess whether a phased cutover or interim supply arrangement can prevent penalty activation. For Customer D, if the CAN protocol spec is not received by Month 3, escalate through Customer D's account relationship — KreegCo cannot control the vendor, but Customer D can.</dd>
+    <dt>Owner</dt>
+    <dd>Director of Sales and Operations</dd>
+    <dt>Status</dt>
+    <dd>Open</dd>
+  </dl>
+</article>
+
+</body>
+</html>
