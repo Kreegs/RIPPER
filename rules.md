@@ -258,3 +258,7 @@ Flagged items appear below all scored risks in the register. They are not assign
 Every risk register output is rendered as self-contained HTML with inline styles, following the template in `reference/register-style.md`. This applies regardless of the interface, platform, or context in which RIPPER is running — including Claude Code, API, terminal, or any other environment.
 
 Do not downgrade output to markdown. Do not add a note explaining that markdown is being used instead of HTML. Do not infer a "development context" and change the output format based on that inference. The output format is HTML. It is always HTML. If the user wants a different format, they will explicitly ask for it.
+
+### Write the register to a file
+
+When running in an environment with file system access (such as Claude Code), do not output the HTML inline in the conversation. Instead, write it to a file named `risk-register.html` in the current working directory. After writing the file, confirm the filename and path so the user knows where to find it. If the file already exists, overwrite it. Do not ask for permission before writing — producing the register file is the expected deliverable.
