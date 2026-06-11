@@ -104,8 +104,8 @@ This is the canonical HTML output format for RIPPER. All full risk register resp
     <tr><td><a href="#R01">R01</a></td><td>8-month hard deadline with no float</td><td>Schedule</td><td>4</td><td>5</td><td class="score-cell">20</td><td><span class="badge critical">Critical</span></td><td>Open</td></tr>
     <tr><td><a href="#R02">R02</a></td><td>Engineering lead is sole designer with no dedicated capacity</td><td>Resource</td><td>4</td><td>5</td><td class="score-cell">20</td><td><span class="badge critical">Critical</span></td><td>Open</td></tr>
     <tr><td><a href="#R03">R03</a></td><td>Key components not yet ordered; long lead times likely</td><td>External</td><td>4</td><td>5</td><td class="score-cell">20</td><td><span class="badge critical">Critical</span></td><td>Open</td></tr>
-    <tr><td><a href="#R04">R04</a></td><td>FCC certification timeline outside Alltrax control</td><td>External</td><td>4</td><td>4</td><td class="score-cell">16</td><td><span class="badge critical">Critical</span></td><td>Open</td></tr>
-    <tr><td><a href="#R05">R05</a></td><td>Customer qualification timelines driven by customers, not Alltrax</td><td>External</td><td>3</td><td>4</td><td class="score-cell">12</td><td><span class="badge high">High</span></td><td>Open</td></tr>
+    <tr><td><a href="#R04">R04</a></td><td>FCC certification timeline outside KreegCo control</td><td>External</td><td>4</td><td>4</td><td class="score-cell">16</td><td><span class="badge critical">Critical</span></td><td>Open</td></tr>
+    <tr><td><a href="#R05">R05</a></td><td>Customer qualification timelines driven by customers, not KreegCo</td><td>External</td><td>3</td><td>4</td><td class="score-cell">12</td><td><span class="badge high">High</span></td><td>Open</td></tr>
     <tr><td><a href="#R06">R06</a></td><td>Contract penalty clauses active across all four customers</td><td>External</td><td>3</td><td>4</td><td class="score-cell">12</td><td><span class="badge high">High</span></td><td>Open</td></tr>
     <tr><td><a href="#R07">R07</a></td><td>New processor: first-time integration on new PCB</td><td>Technical</td><td>3</td><td>4</td><td class="score-cell">12</td><td><span class="badge high">High</span></td><td>Open</td></tr>
     <tr><td><a href="#R08">R08</a></td><td>Manufacturing capacity not formally reserved for MKR builds</td><td>Resource</td><td>4</td><td>3</td><td class="score-cell">12</td><td><span class="badge high">High</span></td><td>Open</td></tr>
@@ -137,7 +137,7 @@ This is the canonical HTML output format for RIPPER. All full risk register resp
     <dt>Probability</dt>
     <dd>4 (Likely) — The timeline contains multiple sequential external dependencies — FCC certification, four separate customer qualifications — each of which could individually cause a slip. Cascading delays are more likely than not over an 8-month window.</dd>
     <dt>Impact</dt>
-    <dd>5 (Critical) — If MKR is not production-ready before SBR inventory is exhausted, Alltrax cannot fulfill orders for any of the four OEM customers simultaneously, triggering contract penalties and supply disruption across all active OEM relationships.</dd>
+    <dd>5 (Critical) — If MKR is not production-ready before SBR inventory is exhausted, KreegCo cannot fulfill orders for any of the four OEM customers simultaneously, triggering contract penalties and supply disruption across all active OEM relationships.</dd>
     <dt>Mitigation</dt>
     <dd>Build a full project schedule mapping all milestones against the Month 8 constraint. Identify the critical path. Target Month 7 as the internal completion gate for all production readiness activities, preserving a 4-week operational buffer.</dd>
     <dt>Contingency</dt>
@@ -202,7 +202,7 @@ This is the canonical HTML output format for RIPPER. All full risk register resp
 <article id="R04" class="risk-card critical">
   <div class="card-header">
     <span class="badge critical">Critical — Score 16</span>
-    <h3>R04 — FCC certification timeline outside Alltrax control</h3>
+    <h3>R04 — FCC certification timeline outside KreegCo control</h3>
   </div>
   <dl>
     <dt>Description</dt>
@@ -232,7 +232,7 @@ This is the canonical HTML output format for RIPPER. All full risk register resp
 <article id="R05" class="risk-card high">
   <div class="card-header">
     <span class="badge high">High — Score 12</span>
-    <h3>R05 — Customer qualification timelines driven by customers, not Alltrax</h3>
+    <h3>R05 — Customer qualification timelines driven by customers, not KreegCo</h3>
   </div>
   <dl>
     <dt>Description</dt>
@@ -240,9 +240,9 @@ This is the canonical HTML output format for RIPPER. All full risk register resp
     <dt>Category</dt>
     <dd>External</dd>
     <dt>Probability</dt>
-    <dd>3 (Possible) — Customers are motivated to qualify because they face supply disruption if they don't. However, their internal scheduling is outside Alltrax control and cannot be contracted or accelerated unilaterally.</dd>
+    <dd>3 (Possible) — Customers are motivated to qualify because they face supply disruption if they don't. However, their internal scheduling is outside KreegCo control and cannot be contracted or accelerated unilaterally.</dd>
     <dt>Impact</dt>
-    <dd>4 (Major) — A customer that does not complete qualification before Month 8 cannot receive MKR. Alltrax cannot continue shipping SBR once inventory is exhausted. Either outcome activates contract penalty provisions.</dd>
+    <dd>4 (Major) — A customer that does not complete qualification before Month 8 cannot receive MKR. KreegCo cannot continue shipping SBR once inventory is exhausted. Either outcome activates contract penalty provisions.</dd>
     <dt>Mitigation</dt>
     <dd>Notify all four customers now and align sample delivery dates with their earliest qualification start windows. Customer C (Summit Industrial) has the shortest qualification requirement (2–3 weeks) and lowest risk — prioritize their sample delivery. Establish a qualification status checkpoint at Month 6 for all customers.</dd>
     <dt>Contingency</dt>
@@ -286,7 +286,7 @@ This is the canonical HTML output format for RIPPER. All full risk register resp
   </div>
   <dl>
     <dt>Description</dt>
-    <dd>The new processor replacing EOL component 1 has not been used by Alltrax before. It must be integrated into a new PCB design and supported by new or substantially revised firmware. Firmware bring-up is targeted for Month 3.5 — two weeks after PCB assembly completion.</dd>
+    <dd>The new processor replacing EOL component 1 has not been used by KreegCo before. It must be integrated into a new PCB design and supported by new or substantially revised firmware. Firmware bring-up is targeted for Month 3.5 — two weeks after PCB assembly completion.</dd>
     <dt>Category</dt>
     <dd>Technical</dd>
     <dt>Probability</dt>
@@ -386,7 +386,7 @@ This is the canonical HTML output format for RIPPER. All full risk register resp
   </div>
   <dl>
     <dt>Description</dt>
-    <dd>Customer B's NEV/LSV application may trigger additional regulatory review on their end during MKR qualification. FMVSS and NHTSA requirements applicable to NEV/LSV vehicles can require separate approval for powertrain component changes. This timeline is outside both Alltrax's and Customer B's direct control.</dd>
+    <dd>Customer B's NEV/LSV application may trigger additional regulatory review on their end during MKR qualification. FMVSS and NHTSA requirements applicable to NEV/LSV vehicles can require separate approval for powertrain component changes. This timeline is outside both KreegCo's and Customer B's direct control.</dd>
     <dt>Category</dt>
     <dd>External</dd>
     <dt>Probability</dt>
@@ -411,7 +411,7 @@ This is the canonical HTML output format for RIPPER. All full risk register resp
   </div>
   <dl>
     <dt>Description</dt>
-    <dd>The new power stage replacing EOL component 2 has not been used by Alltrax before. Power stage selection and integration affects thermal management, motor drive performance, and PCB layout. Internal validation is targeted at Month 4.</dd>
+    <dd>The new power stage replacing EOL component 2 has not been used by KreegCo before. Power stage selection and integration affects thermal management, motor drive performance, and PCB layout. Internal validation is targeted at Month 4.</dd>
     <dt>Category</dt>
     <dd>Technical</dd>
     <dt>Probability</dt>

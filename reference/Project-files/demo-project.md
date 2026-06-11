@@ -47,13 +47,13 @@ The single-PCB approach reduces design complexity and allows shared firmware wit
 - Updated thermal management
 
 **PCB fabrication:**
-Prototype and production PCBs are fabricated and assembled through Alltrax's contract manufacturer in Shenzhen, China. Prototype lead times are approximately 3–4 weeks from Gerber submission.
+Prototype and production PCBs are fabricated and assembled through KreegCo's contract manufacturer in Shenzhen, China. Prototype lead times are approximately 3–4 weeks from Gerber submission.
 
 ---
 
 ## Affected OEM Customers
 
-Four customers currently purchasing SBR units are affected by this transition. All four have active supply agreements with Alltrax.
+Four customers currently purchasing SBR units are affected by this transition. All four have active supply agreements with KreegCo.
 
 **Customer A: Meridian Industrial Vehicles**
 - Application: electric burden carrier and tugger
@@ -75,14 +75,14 @@ Four customers currently purchasing SBR units are affected by this transition. A
 - Annual volume: approximately 350 units
 - Contract terms: 45-day notice clause. No formal monetary penalty; breach triggers Customer C's right of early termination.
 - Qualification requirement: bench validation only. Estimated 2–3 weeks once sample units are received.
-- Stakeholder note: Customer C's primary stakeholder has repeatedly objected to the SBR transition, stating a preference for Alltrax to continue SBR production. Customer C's engineering lead understands the EOL situation and supports the MKR transition. The two contacts are not aligned, and this friction has already slowed internal communications. Qualification sign-off requires approval from the primary stakeholder.
+- Stakeholder note: Customer C's primary stakeholder has repeatedly objected to the SBR transition, stating a preference for KreegCo to continue SBR production. Customer C's engineering lead understands the EOL situation and supports the MKR transition. The two contacts are not aligned, and this friction has already slowed internal communications. Qualification sign-off requires approval from the primary stakeholder.
 
 **Customer D: Pinnacle Utility Vehicles**
 - Application: electric utility and maintenance vehicle
 - SKU required: MKR (no Bluetooth, with CAN bus interface)
 - Annual volume: approximately 700 units
 - Contract terms: master supply agreement requires 90-day notice of product changes. No explicit penalty clause.
-- Qualification requirement: bench and vehicle validation, plus CAN bus integration test with Customer D's fleet management software. Estimated 5–6 weeks once sample units are received. Customer D's fleet management software vendor has not yet provided the CAN protocol specification to Alltrax.
+- Qualification requirement: bench and vehicle validation, plus CAN bus integration test with Customer D's fleet management software. Estimated 5–6 weeks once sample units are received. Customer D's fleet management software vendor has not yet provided the CAN protocol specification to KreegCo.
 
 ---
 
@@ -100,7 +100,7 @@ Four customers currently purchasing SBR units are affected by this transition. A
 | Internal validation complete | Month 4 | All internal test criteria met |
 | FCC pre-certification testing | Month 4 | MKR-BT only. External test lab. |
 | FCC submission | Month 5 | Contingent on pre-cert results |
-| FCC grant received | Month 7 | Target. Timeline outside Alltrax control. |
+| FCC grant received | Month 7 | Target. Timeline outside KreegCo control. |
 | OEM sample units shipped | Month 5.5 | MKR and CAN samples. MKR-BT samples contingent on FCC. |
 | Customer A qualification complete | Month 7.5 | Meridian Industrial Vehicles |
 | Customer B qualification complete | Month 9.5 | Apex Electric Platforms — 8–10 week window after FCC-gated sample delivery |
@@ -123,7 +123,7 @@ Owns customer communication, contract management, qualification coordination, an
 Responsible for prototype assembly, first article build, and production ramp. Capacity has not been formally reserved for MKR builds. Scheduling is managed alongside existing production orders.
 
 **External resources:**
-- PCB contract manufacturer (Shenzhen, China): Alltrax's standard vendor for PCB fabrication and SMT assembly. Prototype lead times approximately 3–4 weeks from Gerber submission.
+- PCB contract manufacturer (Shenzhen, China): KreegCo's standard vendor for PCB fabrication and SMT assembly. Prototype lead times approximately 3–4 weeks from Gerber submission.
 - Enclosure moulder: new injection mould tooling required. Vendor not yet selected. Tooling lead times typically 6–10 weeks.
 - FCC test lab: external lab required for Bluetooth pre-certification testing and formal submission. Lab has not been selected or scheduled.
 - Component suppliers: STM32G474RET6, DRV8353RS, and WSP4953 have been identified and specified. Purchase orders have not been placed. WSP4953 (Onsemi) carries a 26-week lead time for orders exceeding 200 units. Quantities of 200 units or fewer are available at standard lead times and are sufficient for prototype and validation builds. Production run quantities will require a separate order placed well in advance.
@@ -153,7 +153,7 @@ The following are known at project start. This list is not exhaustive.
 - 10-month hard deadline is fixed. It is driven by physical SBR inventory, not a business preference.
 - Engineering lead has no dedicated capacity for this project and carries a competing pre-production commitment through at least Month 2.
 - CAN bus interface is a new capability not present on the SBR. Customer D's fleet management software vendor has not provided the CAN protocol specification; acceptance criteria for the CAN integration test have not been defined.
-- FCC certification is required for the MKR-BT SKU. Timeline is outside Alltrax control.
+- FCC certification is required for the MKR-BT SKU. Timeline is outside KreegCo control.
 
 ---
 

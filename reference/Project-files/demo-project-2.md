@@ -38,10 +38,10 @@ The PRX has been in production for eight years. It is a reliable but aging platf
 - New power stage: IXFB120N20P3 MOSFET (IXYS) — replacing EOL IRFS4010-7P MOSFET array (Infineon)
 - New injection-moulded enclosure (new tooling required; PRX mould not compatible with updated layout)
 - SAE J1939 CAN interface (required by Customer A for fleet management integration — not present on PRX)
-- RP2040 has not been used by Alltrax in a production motor controller context. Prior use limited to internal tooling.
+- RP2040 has not been used by KreegCo in a production motor controller context. Prior use limited to internal tooling.
 
 **PCB fabrication:**
-Prototype and production PCBs fabricated and assembled through Alltrax's contract manufacturer in Shenzhen, China. Prototype lead times approximately 3–4 weeks from Gerber submission.
+Prototype and production PCBs fabricated and assembled through KreegCo's contract manufacturer in Shenzhen, China. Prototype lead times approximately 3–4 weeks from Gerber submission.
 
 ---
 
@@ -54,7 +54,7 @@ Three customers currently purchasing PRX units are affected by this transition.
 - SKU required: CRX (no Bluetooth, with J1939 interface)
 - Annual volume: approximately 820 units
 - Contract terms: 45-day written notice required before any product change. Failure triggers per-unit penalty on affected orders.
-- Qualification requirement: bench validation, vehicle-level validation, and J1939 integration test with Titan's fleet management software. Estimated 6–8 weeks once samples received. Titan's fleet management software vendor has not yet provided the J1939 PGN specification to Alltrax. Acceptance criteria for the integration test have not been defined.
+- Qualification requirement: bench validation, vehicle-level validation, and J1939 integration test with Titan's fleet management software. Estimated 6–8 weeks once samples received. Titan's fleet management software vendor has not yet provided the J1939 PGN specification to KreegCo. Acceptance criteria for the integration test have not been defined.
 
 **Customer B: Coastal Marine Electric**
 - Application: electric dock handling equipment
@@ -134,7 +134,7 @@ No contingency line has been allocated. The mould tooling commitment leaves $73,
 - 7-month hard deadline is fixed. Driven by physical PRX component inventory.
 - Engineering lead has no dedicated project capacity and carries active competing commitments through Month 3.
 - J1939 interface is a new capability not present on the PRX. Titan's fleet management software vendor has not provided the PGN specification. Acceptance criteria for the integration test are undefined.
-- RP2040 has not been used by Alltrax in production. No internal reference design exists.
+- RP2040 has not been used by KreegCo in production. No internal reference design exists.
 - IXFB120N20P3 production lead time exceeds the window available for late PO placement.
 
 ---

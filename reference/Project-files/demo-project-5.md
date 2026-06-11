@@ -14,7 +14,7 @@ KreegCo. will design and manufacture the VGX vehicle interface controller as a d
 
 ## Background
 
-The ICM-4 has been in production for nine years. It provides vehicle communication, diagnostic access, and real-time parameter monitoring for OEM electric vehicles. The ICM-4's diagnostic interface uses a proprietary RS-232 protocol. All three affected OEM customers use a legacy PC-side diagnostic tool that communicates with the ICM-4 over this protocol. The VGX will replace the RS-232 diagnostic interface with a new Ethernet-based interface — a first for any Alltrax product. The legacy PC tool must continue to work without modification; the VGX firmware must emulate the ICM-4 RS-232 protocol over the new physical layer.
+The ICM-4 has been in production for nine years. It provides vehicle communication, diagnostic access, and real-time parameter monitoring for OEM electric vehicles. The ICM-4's diagnostic interface uses a proprietary RS-232 protocol. All three affected OEM customers use a legacy PC-side diagnostic tool that communicates with the ICM-4 over this protocol. The VGX will replace the RS-232 diagnostic interface with a new Ethernet-based interface — a first for any KreegCo product. The legacy PC tool must continue to work without modification; the VGX firmware must emulate the ICM-4 RS-232 protocol over the new physical layer.
 
 The VGX will also collect and transmit vehicle telemetry including speed profiles, motor runtime hours, and driver behavior metrics. One customer (Customer B) is based in the EU, and driver behavior logging triggers GDPR obligations that have not yet been assessed.
 
@@ -42,7 +42,7 @@ The VGX will also collect and transmit vehicle telemetry including speed profile
 - Vehicle telemetry module: runtime data logged and transmitted via optional CAN bridge to customer fleet management platforms
 
 **PCB fabrication:**
-Prototype and production PCBs fabricated and assembled through Alltrax's contract manufacturer in Shenzhen, China. Prototype lead times approximately 3–4 weeks from Gerber submission.
+Prototype and production PCBs fabricated and assembled through KreegCo's contract manufacturer in Shenzhen, China. Prototype lead times approximately 3–4 weeks from Gerber submission.
 
 ---
 
@@ -55,7 +55,7 @@ Three customers currently purchasing ICM-4 units are affected by this transition
 - Location: United States
 - Annual volume: approximately 700 units
 - Contract terms: 60-day written notice required before any product change.
-- Qualification requirement: bench and vehicle-level validation, plus Ethernet diagnostic interface integration test with Continental's telematics platform. Estimated 6 weeks once samples received. Continental's telematics platform vendor has not yet provided an integration specification to Alltrax. No agreement or timeline is in place with that vendor.
+- Qualification requirement: bench and vehicle-level validation, plus Ethernet diagnostic interface integration test with Continental's telematics platform. Estimated 6 weeks once samples received. Continental's telematics platform vendor has not yet provided an integration specification to KreegCo. No agreement or timeline is in place with that vendor.
 
 **Customer B: VeloTruck GmbH**
 - Application: electric light commercial vehicles
@@ -63,7 +63,7 @@ Three customers currently purchasing ICM-4 units are affected by this transition
 - Annual volume: approximately 500 units
 - Contract terms: 90-day written notice required before any product change.
 - Qualification requirement: bench and vehicle-level validation, plus review of data handling compliance documentation. Estimated 10 weeks once samples received.
-- GDPR note: The VGX firmware layer collects driver behavior metrics (acceleration events, speed profiles, braking frequency) as part of telemetry. Under GDPR, driver behavior data linked to vehicle assignment records constitutes personal data. No formal data protection impact assessment (DPIA) has been conducted. Customer B's master supply agreement includes a data localization clause specifying that personal data of EU drivers may not be processed outside the EEA. Current telemetry architecture routes data through Alltrax's US-based servers. No data processing agreement (DPA) is in place with any downstream data handler. This conflict has not been raised with Customer B.
+- GDPR note: The VGX firmware layer collects driver behavior metrics (acceleration events, speed profiles, braking frequency) as part of telemetry. Under GDPR, driver behavior data linked to vehicle assignment records constitutes personal data. No formal data protection impact assessment (DPIA) has been conducted. Customer B's master supply agreement includes a data localization clause specifying that personal data of EU drivers may not be processed outside the EEA. Current telemetry architecture routes data through KreegCo's US-based servers. No data processing agreement (DPA) is in place with any downstream data handler. This conflict has not been raised with Customer B.
 
 **Customer C: NorthWest Industrial**
 - Application: electric material handling equipment
@@ -142,7 +142,7 @@ No contingency line has been allocated. The tooling commitment leaves $116,000 f
 ## Known Constraints
 
 - 11-month hard deadline is fixed. Driven by ICM-4 CAN transceiver last-time-buy inventory.
-- Ethernet diagnostic stack is a first-time implementation for Alltrax. No internal reference design, prior implementation experience, or reusable code base exists.
+- Ethernet diagnostic stack is a first-time implementation for KreegCo. No internal reference design, prior implementation experience, or reusable code base exists.
 - ICM-4 diagnostic protocol is entirely undocumented. Reverse-engineering from protocol captures is the only available approach. Duration and completeness cannot be guaranteed.
 - Senior Firmware Engineer is the only full-time technical resource and is simultaneously allocated to two other active firmware projects.
 - GDPR obligations from driver behavior logging have not been assessed. Current telemetry architecture may be non-compliant with Customer B's data localization clause.

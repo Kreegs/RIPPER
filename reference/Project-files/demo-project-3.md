@@ -43,7 +43,7 @@ The ARC will include a data logging module that records cycle counts, fault even
 - EMC-compliant design required for CE marking
 
 **PCB fabrication:**
-Prototype and production PCBs fabricated and assembled through Alltrax's contract manufacturer in Shenzhen, China.
+Prototype and production PCBs fabricated and assembled through KreegCo's contract manufacturer in Shenzhen, China.
 
 ---
 
@@ -96,8 +96,8 @@ Four customers currently purchasing ZBR-II units are affected by this transition
 | CE pre-compliance testing | Month 5.5 | External lab. Lab not yet selected or scheduled. |
 | CE formal submission | Month 6.5 | Contingent on pre-compliance results |
 | RCM test submission | Month 6 | External AU test facility. Not yet engaged. |
-| CE mark received | Month 8.5 | Target. Timeline outside Alltrax control. |
-| RCM mark received | Month 7.5 | Target. Timeline outside Alltrax control. |
+| CE mark received | Month 8.5 | Target. Timeline outside KreegCo control. |
+| RCM mark received | Month 7.5 | Target. Timeline outside KreegCo control. |
 | OEM sample units shipped (Customers A and B) | Month 5.5 | Non-certified units for domestic customers |
 | OEM sample units shipped (Customers C and D) | Month 8.5 | Contingent on CE/RCM receipt |
 | Customer A qualification complete | Month 7.5 | Inland Logistics Systems |
@@ -115,7 +115,7 @@ Four customers currently purchasing ZBR-II units are affected by this transition
 Primary designer for all hardware and firmware including ASIC function reimplementation. Sole technical resource on this project. Also allocated to a separate R&D initiative beginning Month 4, carrying an estimated 30% time commitment through project end.
 
 **QA Manager:** shared resource
-Responsible for CE and RCM compliance documentation, test coordination, and technical file preparation. Also carries ongoing production QA responsibilities throughout the project. No prior CE certification experience on the Alltrax product line.
+Responsible for CE and RCM compliance documentation, test coordination, and technical file preparation. Also carries ongoing production QA responsibilities throughout the project. No prior CE certification experience on the KreegCo product line.
 
 **Operations/PM:** Director of Operations
 **Manufacturing:** Production team (capacity not formally reserved)
@@ -152,10 +152,10 @@ Contingency: $12,000 allocated (4.3% of total budget). CE and RCM testing cost r
 
 - 11-month hard deadline is fixed. Driven by ZBR-II MOSFET last-time-buy inventory.
 - ASIC function reimplementation in firmware has no internal precedent. Effort and timeline carry meaningful uncertainty.
-- CE marking and RCM approval timelines are outside Alltrax control. Both are on the critical path for two customers.
+- CE marking and RCM approval timelines are outside KreegCo control. Both are on the critical path for two customers.
 - ZBR-II firmware (~40,000 lines of undocumented C) must be partially ported to the STM32H743 platform. No test suite exists. No isolated test environment exists for validation.
 - Cloud dashboard data storage may conflict with Customer B's EU data localization clause. No DPA exists with the SaaS vendor.
-- QA Manager has no prior CE certification experience on Alltrax products.
+- QA Manager has no prior CE certification experience on KreegCo products.
 - Manufacturing in China and component sourcing from Taiwan-based fabs introduces tariff exposure. Budget cost estimates were prepared before the most recent tariff schedule revision.
 
 ---

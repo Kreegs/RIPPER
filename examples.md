@@ -49,10 +49,10 @@ The Director of Engineering is the single point of failure for all hardware and 
 **R03 — Key components not yet ordered; long lead times likely** | External | Score: 20 (Critical)
 The new processor and power stage have been identified but not ordered. Electronic component lead times of 12–26+ weeks are common. PCB assembly is targeted at Month 3, meaning components must arrive well before that. Until orders are placed, there is no confirmed delivery date and no timeline. Mitigation: place orders immediately.
 
-**R04 — FCC certification timeline outside Alltrax control** | External | Score: 16 (Critical)
+**R04 — FCC certification timeline outside KreegCo control** | External | Score: 16 (Critical)
 FCC grants typically take 8–16 weeks from submission. The project targets submission at Month 4.5 and grant receipt at Month 6 — a 6-week window that is already shorter than the minimum typical timeline. Customer A and B (both requiring MKR-BT) cannot begin qualification until FCC-certified samples are in hand. Mitigation: engage a test lab now and design for FCC compliance from the start of layout.
 
-**R05 — Customer qualification timelines driven by customers, not Alltrax** | External | Score: 12 (High)
+**R05 — Customer qualification timelines driven by customers, not KreegCo** | External | Score: 12 (High)
 All four customers must complete qualification before Month 8 cutover. Timelines range from 2–3 weeks (Customer C) to 6–8 weeks (Customer A). These are customer-controlled processes. Mitigation: notify all customers immediately, ship samples at the earliest possible date, and establish a qualification status checkpoint at Month 6.
 
 ---
@@ -65,7 +65,7 @@ All four customers must complete qualification before Month 8 cutover. Timelines
 
 Understood. Updating R05.
 
-**R05 — Customer qualification timelines driven by customers, not Alltrax**
+**R05 — Customer qualification timelines driven by customers, not KreegCo**
 - Previous score: Probability 3 × Impact 4 = **12 (High)**
 - Updated score: Probability 4 × Impact 4 = **16 (Critical)**
 - Priority tier: High → **Critical**
@@ -121,14 +121,14 @@ Finding: No pending amendments to Part 15 rules affecting Bluetooth 5.0 device c
 
 **P15 — Trade and tariff exposure:**
 Searched: "PCB tariffs 2026," "electronics tariffs China 2026," "Section 301 PCB import duties."
-Finding: Section 301 tariffs on printed circuit boards manufactured in China remain active at 25% (USTR, maintained through current review cycle). Integrated circuit imports under HTS 8542 are subject to additional levies under ongoing trade policy. Alltrax's PCB fabrication vendor location is not stated in the project brief. At low-to-mid prototype volumes, motor controller PCB fabrication is predominantly performed in China or Taiwan; Taiwan-origin boards are not subject to equivalent tariff exposure.
-**Result: P15 confirmed signal.** If Alltrax's standard PCB vendor is China-based, active 25% tariffs apply to prototype and first production run costs. With no contingency budget (R09) and no formal budget established (R14), a tariff-driven cost increase at the prototype order stage would require owner escalation at the exact moment procurement decisions need to move fastest.
+Finding: Section 301 tariffs on printed circuit boards manufactured in China remain active at 25% (USTR, maintained through current review cycle). Integrated circuit imports under HTS 8542 are subject to additional levies under ongoing trade policy. KreegCo's PCB fabrication vendor location is not stated in the project brief. At low-to-mid prototype volumes, motor controller PCB fabrication is predominantly performed in China or Taiwan; Taiwan-origin boards are not subject to equivalent tariff exposure.
+**Result: P15 confirmed signal.** If KreegCo's standard PCB vendor is China-based, active 25% tariffs apply to prototype and first production run costs. With no contingency budget (R09) and no formal budget established (R14), a tariff-driven cost increase at the prototype order stage would require owner escalation at the exact moment procurement decisions need to move fastest.
 
 **Adding to register:**
 
 **R16 — PCB fabrication tariff exposure (China-sourced)**
 Category: External / Budget
-Probability: 2 (Unlikely) — Alltrax may use a domestic or Taiwan-based fabricator. Exposure is conditional on vendor geography, which is not confirmed.
+Probability: 2 (Unlikely) — KreegCo may use a domestic or Taiwan-based fabricator. Exposure is conditional on vendor geography, which is not confirmed.
 Impact: 3 (Moderate) — A 25% tariff on prototype and first-run PCBs adds meaningful unbudgeted cost on a project with no contingency. If the tariff cost holds up the prototype order while owner approval is sought, the timeline impact compounds the cost impact.
 Risk score: 2 × 3 = **6 (Medium)**
 Source: USTR Section 301 tariff schedule, active as of current review; trade reporting on electronics import duties, Q1–Q2 2026.
@@ -195,11 +195,11 @@ Two signals in the project brief partially match pattern triggers but cannot be 
 
 **F01 — CAN fleet management software vendor: dependency status unknown**
 
-Signal: Customer D's qualification requires a CAN bus integration test with their fleet management software vendor. That vendor has not provided the CAN protocol specification to Alltrax. The brief does not describe any agreement, engagement, or commitment between Alltrax and that vendor.
+Signal: Customer D's qualification requires a CAN bus integration test with their fleet management software vendor. That vendor has not provided the CAN protocol specification to KreegCo. The brief does not describe any agreement, engagement, or commitment between KreegCo and that vendor.
 
-Pattern: Partially matches the External dependency without a signed agreement pattern. Whether this is a scored risk depends entirely on whether any formal or informal commitment exists between Alltrax and the software vendor. If no engagement exists, this is a real external dependency with no agreement — default P3, I4, which would score 12 (High) and potentially escalate if the spec delivery timeline is also undefined. If the vendor is already engaged and working, it may not rise above Low.
+Pattern: Partially matches the External dependency without a signed agreement pattern. Whether this is a scored risk depends entirely on whether any formal or informal commitment exists between KreegCo and the software vendor. If no engagement exists, this is a real external dependency with no agreement — default P3, I4, which would score 12 (High) and potentially escalate if the spec delivery timeline is also undefined. If the vendor is already engaged and working, it may not rise above Low.
 
-Question: Does Alltrax have any formal or informal agreement with Customer D's fleet management software vendor for delivery of the CAN protocol specification and integration test support? If yes, what is the committed delivery timeline?
+Question: Does KreegCo have any formal or informal agreement with Customer D's fleet management software vendor for delivery of the CAN protocol specification and integration test support? If yes, what is the committed delivery timeline?
 
 ---
 

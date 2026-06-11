@@ -14,7 +14,7 @@ KreegCo. will design, certify, and manufacture the NVX battery management system
 
 ## Background
 
-The CBM-3 has been in production for seven years and supports only NMC (nickel manganese cobalt) lithium cell chemistry. Since the CBM-3 was designed, LFP (lithium iron phosphate) cell chemistry has become the dominant choice for commercial fleet applications due to its cycle life, thermal stability, and lower cost. Two of the three affected OEM customers have either transitioned or are planning to transition their battery packs to LFP. The NVX must support both NMC and LFP chemistries. Alltrax has no prior production experience with LFP cell chemistry in a BMS context. Thermal management profiles, balancing algorithms, and state-of-charge estimation differ significantly between chemistries.
+The CBM-3 has been in production for seven years and supports only NMC (nickel manganese cobalt) lithium cell chemistry. Since the CBM-3 was designed, LFP (lithium iron phosphate) cell chemistry has become the dominant choice for commercial fleet applications due to its cycle life, thermal stability, and lower cost. Two of the three affected OEM customers have either transitioned or are planning to transition their battery packs to LFP. The NVX must support both NMC and LFP chemistries. KreegCo has no prior production experience with LFP cell chemistry in a BMS context. Thermal management profiles, balancing algorithms, and state-of-charge estimation differ significantly between chemistries.
 
 The NVX must also meet IEC 62133-2 certification requirements for Customer A's EU and Australian markets. The CBM-3 did not carry this certification.
 
@@ -42,7 +42,7 @@ The NVX must also meet IEC 62133-2 certification requirements for Customer A's E
 - IEC 62133-2 compliance design targets: cell-level protection, thermal runaway detection, overcurrent and overvoltage response
 
 **PCB fabrication:**
-Prototype and production PCBs fabricated and assembled through Alltrax's contract manufacturer in Shenzhen, China. Prototype lead times approximately 3–4 weeks from Gerber submission.
+Prototype and production PCBs fabricated and assembled through KreegCo's contract manufacturer in Shenzhen, China. Prototype lead times approximately 3–4 weeks from Gerber submission.
 
 ---
 
@@ -61,7 +61,7 @@ Three customers currently purchasing CBM-3 units are affected by this transition
 - Annual volume: approximately 800 units
 - Contract terms: liquidated damages clause if supply is interrupted for more than 21 consecutive days. 45-day written notice required before any product change.
 - Qualification requirement: bench and vehicle-level validation. Estimated 6–8 weeks once samples received.
-- Stakeholder note: Customer B's procurement VP has communicated a required transition timeline of 4 months, citing inventory planning constraints. Customer B's engineering team has assessed the NVX scope and stated that 9 months is the minimum viable timeline given LFP validation and certification requirements. The two positions have not been reconciled. No formal agreement on transition timeline has been reached. Alltrax has continued planning against the 9-month schedule while the customer-side position remains unresolved.
+- Stakeholder note: Customer B's procurement VP has communicated a required transition timeline of 4 months, citing inventory planning constraints. Customer B's engineering team has assessed the NVX scope and stated that 9 months is the minimum viable timeline given LFP validation and certification requirements. The two positions have not been reconciled. No formal agreement on transition timeline has been reached. KreegCo has continued planning against the 9-month schedule while the customer-side position remains unresolved.
 
 **Customer C: Alpine Industrial Equipment**
 - Application: electric pallet movers and material handling
@@ -89,7 +89,7 @@ Three customers currently purchasing CBM-3 units are affected by this transition
 | IEC 62133-2 formal submission | Month 6 | Contingent on pre-test results |
 | OEM sample units shipped (Customer C) | Month 5 | Bench-only customer, earliest qual path |
 | OEM sample units shipped (Customers A and B) | Month 6.5 | After IEC pre-test milestone |
-| IEC 62133-2 certificate received | Month 7.5 | Target. Timeline outside Alltrax control. |
+| IEC 62133-2 certificate received | Month 7.5 | Target. Timeline outside KreegCo control. |
 | Customer C qualification complete | Month 7 | Alpine Industrial Equipment |
 | Customer B qualification complete | Month 8 | Meridian Fleet Technologies — timeline alignment unresolved |
 | Customer A qualification complete | Month 8.5 | Summit Power Systems — contingent on IEC cert |
@@ -138,10 +138,10 @@ No contingency line has been allocated within the $185,000. The mould tooling co
 ## Known Constraints
 
 - 9-month hard deadline is fixed. Driven by CBM-3 component inventory.
-- LFP cell chemistry support is a first-time implementation for Alltrax. Thermal models, balancing algorithms, and SoC estimation have no internal reference.
+- LFP cell chemistry support is a first-time implementation for KreegCo. Thermal models, balancing algorithms, and SoC estimation have no internal reference.
 - LFP thermal runaway protection acceptance criteria have not been defined. The IEC 62133-2 certification body will define test parameters during the engagement — scope is not known in advance.
 - Firmware engineer departs project at Month 5. Remaining firmware work transfers to hardware engineer with limited firmware experience.
-- IEC 62133-2 certification timeline is outside Alltrax control and is on the critical path for Customer A.
+- IEC 62133-2 certification timeline is outside KreegCo control and is on the critical path for Customer A.
 - Customer B timeline alignment is unresolved. Procurement VP's 4-month position is incompatible with the project schedule.
 - EU Battery Regulation (EU) 2023/1542 enters its enforcement phase during the project window. Full impact on NVX compliance scope has not been assessed. Regulation may require additional documentation or design changes not currently scoped.
 - LFP cell supply is concentrated among Chinese manufacturers. No non-China cell source has been evaluated.
