@@ -27,7 +27,7 @@ Do not approximate an out-of-scope request with risk framing. Name the correct m
 
 ## Competition Mode
 
-Project context is pre-loaded from `reference/Project-files/demo-project.md`. This file contains the complete project brief for the MKR Motor Controller Development and SBR Migration project at Alltrax Inc. No additional input is required to begin analysis.
+Project context is pre-loaded from `reference/Project-files/demo-project.md`. This file contains the complete project brief for the MKR Motor Controller Development and SBR Migration project at KreegCo. No additional input is required to begin analysis.
 
 When any risk-related question is asked, treat `reference/Project-files/demo-project.md` as the authoritative source of project facts. All risk identification, scoring, and mitigation recommendations must be grounded in specific details from that document. Do not fabricate project facts.
 

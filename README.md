@@ -1,8 +1,21 @@
-# RIPPER — Risk Identification Pattern Prediction Engine Render
+# RIPPER — Risk Identification Pattern Prediction Engine Renderer
 
 RIPPER is an AI risk specialist that identifies, scores, and prioritizes risks from project context, produces a structured HTML risk register with mitigation recommendations, and supports interactive risk register management through conversation.
 
 This is Module 1 of a planned multi-module PM agent. It handles risk analysis only.
+
+---
+
+## Contents
+
+- [What it does](#what-it-does)
+- [What it does not do](#what-it-does-not-do)
+- [Quick Start](#quick-start)
+- [Example Questions](#example-questions)
+- [Output Format](#output-format)
+- [Using RIPPER in a Claude Project](#using-ripper-in-a-claude-project)
+- [Folder Structure](#folder-structure)
+- [Where This Fits](#where-this-fits)
 
 ---
 
@@ -16,13 +29,44 @@ This is Module 1 of a planned multi-module PM agent. It handles risk analysis on
 - Generates a mitigation recommendation and contingency plan for every risk
 - Supports follow-up queries, score challenges, status updates, and new risk additions through conversation
 
+```mermaid
+flowchart TD
+    A([Project context loaded]) --> B[Read project context]
+    B --> C[Identify risks across 6 categories]
+    C --> D[Score each risk\nProbability × Impact]
+    D --> E{Assign priority tier}
+    E -->|15–25| F[🔴 Critical]
+    E -->|8–14| G[🟠 High]
+    E -->|4–7| H[🟡 Medium]
+    E -->|1–3| I[🟢 Low]
+    F & G & H & I --> J[Generate HTML risk register]
+    J --> K([Interactive refinement\nchallenge · add · update · query])
+    K -->|register updates| J
+
+    classDef input fill:#4a90d9,stroke:#2c6fad,color:#fff
+    classDef process fill:#6b5ea8,stroke:#4a3d8f,color:#fff
+    classDef output fill:#e07b39,stroke:#b85e20,color:#fff
+    classDef critical fill:#c0392b,stroke:#922b21,color:#fff
+    classDef high fill:#d35400,stroke:#a04000,color:#fff
+    classDef medium fill:#d4ac0d,stroke:#a08000,color:#000
+    classDef low fill:#27ae60,stroke:#1a7a44,color:#fff
+
+    class A,K input
+    class B,C,D,E process
+    class J output
+    class F critical
+    class G high
+    class H medium
+    class I low
+```
+
 ## What it does not do
 
 It does not manage schedules, track budget variances, evaluate scope changes, or draft stakeholder communications. Those functions belong to separate specialist modules not built in this version. When asked to perform them, RIPPER names the correct future module rather than approximating the answer.
 
 ---
 
-## Competition Mode (No Setup Required)
+## Quick Start
 
 The project context is already loaded. Drop this folder into a Claude Project and ask any risk-related question.
 
@@ -32,19 +76,8 @@ The project context is already loaded. Drop this folder into a Claude Project an
 
 RIPPER will return a scored risk register with full rationale and mitigation recommendations — no additional input needed.
 
-**Project loaded:** MKR Motor Controller Development and SBR Migration — Alltrax Inc.
+**Project loaded:** MKR Motor Controller Development and SBR Migration — KreegCo.
 A controller replacement project driven by component end-of-life, with an 8-month hard deadline, four OEM customers with active contract penalty clauses, FCC certification required for one SKU, and a single engineering lead with no dedicated project capacity.
-
----
-
-## Expansion Mode (Your Own Project)
-
-Paste your project documents at the start of the session, then ask a risk question. RIPPER accepts any combination of: project brief, charter, SOW, timeline, budget summary, resource plan. It does not require a specific format.
-
-**To start:**
-
-> Here is our project context: [paste your documents]
-> What are the risks I should be tracking?
 
 ---
 
@@ -84,6 +117,34 @@ Save the HTML output as a `.html` file to open it in a browser. No external depe
 
 ---
 
+## Using RIPPER in a Claude Project
+
+Claude Projects let you load RIPPER's files as persistent knowledge so Claude reads them automatically at the start of every conversation — no pasting required.
+
+**One-time setup:**
+
+1. Go to [claude.ai](https://claude.ai) and click **Projects** in the left sidebar, then **Create project**.
+2. Give the project a name (e.g. *RIPPER — Risk Specialist*).
+3. Open the project and click **Add content** (or the knowledge/files icon).
+4. Upload the following files from this folder:
+   - `identity.md`
+   - `rules.md`
+   - `examples.md`
+   - `reference/risk-patterns.md`
+   - `reference/Project-files/demo-project.md`
+5. Optionally paste a brief description into the **Project instructions** box, e.g.:
+   > You are RIPPER, an AI risk specialist. Your role, scoring rules, and behavior are defined in the uploaded knowledge files. Follow them exactly.
+
+**Starting a session:**
+
+Open any conversation inside the project and ask a risk question. Claude reads the knowledge files automatically.
+
+**Keeping the register across sessions:**
+
+Claude Projects do not persist conversation history between sessions. If you want to carry a live risk register forward, paste the current HTML register at the start of a new session and ask RIPPER to continue from it.
+
+---
+
 ## Folder Structure
 
 ```
@@ -93,7 +154,7 @@ RIPPER/
 ├── examples.md          — worked examples of register output and interaction
 ├── reference/
 │   ├── Project-files/
-│   │   └── demo-project.md  — pre-loaded project context (competition mode)
+│   │   └── demo-project.md  — pre-loaded project context
 │   └── risk-patterns.md     — standalone pattern library for future module import
 └── README.md            — this file
 ```
@@ -103,3 +164,9 @@ RIPPER/
 ## Where This Fits
 
 RIPPER is the risk specialist in a planned multi-module PM agent. Future modules — schedule analyst, budget tracker, scope change evaluator, stakeholder communication drafter — will operate alongside it. Each module is a specialist. None of them try to do each other's jobs.
+
+---
+
+## TODO
+
+- **Expansion Mode** — allow users to supply their own project documents at the start of a session instead of using the pre-loaded demo project. RIPPER would accept any combination of project brief, charter, SOW, timeline, budget summary, or resource plan and run the same risk identification and scoring workflow against user-supplied context.

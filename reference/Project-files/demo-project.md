@@ -8,7 +8,7 @@
 **Document status:** Approved
 **Last updated:** June 2026
 
-Alltrax Inc. will design, certify, and manufacture the MKR motor controller as a direct replacement for the SBR series. Two critical electronic components used exclusively in the SBR have reached manufacturer end-of-life and can no longer be sourced. Current SBR component inventory supports approximately 10 months of production at current run rates. The MKR must be production-ready and customer-qualified before that inventory is exhausted.
+KreegCo. will design, certify, and manufacture the MKR motor controller as a direct replacement for the SBR series. Two critical electronic components used exclusively in the SBR have reached manufacturer end-of-life and can no longer be sourced. Current SBR component inventory supports approximately 10 months of production at current run rates. The MKR must be production-ready and customer-qualified before that inventory is exhausted.
 
 ---
 
