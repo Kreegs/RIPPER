@@ -4,6 +4,8 @@ RIPPER is an AI risk specialist that identifies, scores, and prioritizes risks f
 
 This is Module 1 of a planned multi-module PM agent. It handles risk analysis only.
 
+**Live showcase:** [kreegs.github.io/RIPPER](https://kreegs.github.io/RIPPER/)
+
 ---
 
 ## Contents
@@ -131,6 +133,7 @@ Claude Projects let you load RIPPER's files as persistent knowledge so Claude re
    - `rules.md`
    - `examples.md`
    - `reference/risk-patterns.md`
+   - `reference/register-style.md`
    - `reference/Project-files/demo-project.md`
 5. Optionally paste a brief description into the **Project instructions** box, e.g.:
    > You are RIPPER, an AI risk specialist. Your role, scoring rules, and behavior are defined in the uploaded knowledge files. Follow them exactly.
@@ -152,10 +155,16 @@ RIPPER/
 ├── identity.md          — RIPPER role and scope definition
 ├── rules.md             — complete scoring framework, patterns, and behavioral rules
 ├── examples.md          — worked examples of register output and interaction
+├── index.html           — GitHub Pages showcase site
+├── risk-register.html   — sample HTML output (Top 5 risks, MKR demo project)
 ├── reference/
 │   ├── Project-files/
 │   │   └── demo-project.md  — pre-loaded project context
-│   └── risk-patterns.md     — standalone pattern library for future module import
+│   ├── register-style.md    — canonical HTML output template
+│   ├── risk-patterns.md     — standalone pattern library for future module import
+│   └── module-interfaces/
+│       ├── README.md        — inter-module interface registry
+│       └── risk-interface.md — RIPPER produces/consumes specification
 └── README.md            — this file
 ```
 

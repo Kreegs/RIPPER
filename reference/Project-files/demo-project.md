@@ -1,168 +1,159 @@
-# Project Brief: MKR Motor Controller Development and SBR Migration
+# Project Brief: NVX Battery Management System Development and CBM-3 Migration
 
 ## Project Overview
 
-**Project name:** MKR Motor Controller Development and SBR Migration
+**Project name:** NVX Battery Management System Development and CBM-3 Migration
 **Project sponsor:** Owner
-**Project manager:** Director of Sales and Operations
+**Project manager:** Director of Operations
 **Document status:** Approved
 **Last updated:** June 2026
 
-KreegCo. will design, certify, and manufacture the MKR motor controller as a direct replacement for the SBR series. Two critical electronic components used exclusively in the SBR have reached manufacturer end-of-life and can no longer be sourced. Current SBR component inventory supports approximately 10 months of production at current run rates. The MKR must be production-ready and customer-qualified before that inventory is exhausted.
+KreegCo. will design, certify, and manufacture the NVX battery management system as a direct replacement for the CBM-3 series. Two critical components used exclusively in the CBM-3 have reached end-of-life. The LTC6804-2 multicell battery monitor (Analog Devices) has been officially discontinued; the STM8S207 microcontroller (STMicroelectronics) has an EOL notice in effect with last-time-buy window closing in four months. Current CBM-3 component inventory supports approximately 9 months of production at current run rates. The NVX must be production-ready and customer-qualified before that inventory is exhausted.
 
 ---
 
 ## Background
 
-The SBR has been in production for over a decade. It is an aging design with a complex manufacturing process that carries a high defect rate relative to current product lines. Component EOL presents a forced transition, but also an opportunity to modernize the hardware platform, reduce manufacturing complexity, and address new customer interface requirements that have emerged since the SBR was designed.
+The CBM-3 has been in production for seven years and supports only NMC (nickel manganese cobalt) lithium cell chemistry. Since the CBM-3 was designed, LFP (lithium iron phosphate) cell chemistry has become the dominant choice for commercial fleet applications due to its cycle life, thermal stability, and lower cost. Two of the three affected OEM customers have either transitioned or are planning to transition their battery packs to LFP. The NVX must support both NMC and LFP chemistries. KreegCo has no prior production experience with LFP cell chemistry in a BMS context. Thermal management profiles, balancing algorithms, and state-of-charge estimation differ significantly between chemistries.
 
-The MKR will replace the SBR on a one-to-one basis for all four affected OEM customers. It must maintain full backward compatibility in mounting dimensions, connector placement, and wire harness interface. Customers will not modify their vehicle designs or tooling to accommodate this transition.
+The NVX must also meet IEC 62133-2 certification requirements for Customer A's EU and Australian markets. The CBM-3 did not carry this certification.
 
 ---
 
 ## Product Definition
 
-**Product name:** MKR Motor Controller
-**Replaces:** SBR series
+**Product name:** NVX Battery Management System
+**Replaces:** CBM-3 series
 
-**Two SKUs, one PCB:**
-- MKR-BT: Bluetooth module populated. Intended for customers requiring wireless configuration and telemetry.
-- MKR: Bluetooth module unpopulated. Identical PCB and enclosure. BT functionality disabled.
-
-The single-PCB approach reduces design complexity and allows shared firmware with feature gating. Manufacturing differentiates the two SKUs at the stuffing stage.
+**Single hardware platform, chemistry-selectable via firmware configuration:**
+- NVX-NMC: NMC cell chemistry profile active
+- NVX-LFP: LFP cell chemistry profile active
 
 **Form factor constraints (non-negotiable):**
-- Mounting hole pattern must match SBR exactly
-- Wire harness connector positions must match SBR exactly
-- Overall enclosure dimensions must not exceed SBR envelope
-- These constraints are contractual. No exceptions without written customer approval and contract amendment.
+- PCB mounting dimensions must match CBM-3 exactly
+- Connector pinout and placement must match CBM-3 exactly
+- Enclosure dimensions must not exceed CBM-3 envelope
+- Contractual for all three customers.
 
-**Key design updates over SBR:**
-- New processor: STM32G474RET6 (STMicroelectronics) — replacing EOL component 1
-- New power stage: DRV8353RS gate driver (Texas Instruments) with WSP4953 MOSFETs (Onsemi) — replacing EOL component 2
-- New injection-moulded enclosure (new tooling required; existing SBR mould is not compatible with updated internal layout)
-- Simplified PCB layout targeting reduced assembly time and defect rate
-- Bluetooth 5.0 module (MKR-BT SKU)
-- CAN 2.0B interface (required by Customer D for fleet management integration — not present on SBR)
-- Updated thermal management
+**Key design updates over CBM-3:**
+- New cell monitoring IC: BQ76952 (Texas Instruments) — replacing discontinued LTC6804-2
+- New main MCU: STM32G071CBT6 (STMicroelectronics) — replacing EOL STM8S207
+- LFP chemistry support: new firmware balancing algorithms, SoC estimation, and thermal models (no internal reference exists)
+- IEC 62133-2 compliance design targets: cell-level protection, thermal runaway detection, overcurrent and overvoltage response
 
 **PCB fabrication:**
-Prototype and production PCBs are fabricated and assembled through KreegCo's contract manufacturer in Shenzhen, China. Prototype lead times are approximately 3–4 weeks from Gerber submission.
+Prototype and production PCBs fabricated and assembled through KreegCo's contract manufacturer in Shenzhen, China. Prototype lead times approximately 3–4 weeks from Gerber submission.
 
 ---
 
 ## Affected OEM Customers
 
-Four customers currently purchasing SBR units are affected by this transition. All four have active supply agreements with KreegCo.
+Three customers currently purchasing CBM-3 units are affected by this transition.
 
-**Customer A: Meridian Industrial Vehicles**
-- Application: electric burden carrier and tugger
-- SKU required: MKR-BT
-- Annual volume: approximately 950 units
-- Contract terms: 60-day written notice required before any product change. Failure to provide notice triggers a per-unit penalty on affected orders.
-- Qualification requirement: bench and vehicle-level validation required before production approval. Estimated 5–7 weeks once sample units are received.
+**Customer A: Summit Power Systems**
+- Application: electric utility storage and material handling vehicles
+- Annual volume: approximately 450 units
+- Contract terms: 90-day written notice required before any product change.
+- Qualification requirement: bench validation, vehicle-level validation, and IEC 62133-2 compliance documentation review. Estimated 14–16 weeks once samples received. Customer A's EU and Australian distributors will not accept units without a valid IEC 62133-2 certificate. Thermal runaway protection testing is required as part of the IEC scope; acceptance criteria have not been defined internally, and the external certification body will set the test parameters.
 
-**Customer B: Apex Electric Platforms**
-- Application: NEV/LSV platform
-- SKU required: MKR-BT
-- Annual volume: approximately 1,100 units
-- Contract terms: liquidated damages clause if supply is interrupted for more than 21 consecutive days.
-- Qualification requirement: bench validation, vehicle validation, and internal homologation review. Estimated 8–10 weeks once sample units are received. NEV/LSV application may require additional regulatory review on their end.
+**Customer B: Meridian Fleet Technologies**
+- Application: electric fleet delivery vehicles
+- Annual volume: approximately 800 units
+- Contract terms: liquidated damages clause if supply is interrupted for more than 21 consecutive days. 45-day written notice required before any product change.
+- Qualification requirement: bench and vehicle-level validation. Estimated 6–8 weeks once samples received.
+- Stakeholder note: Customer B's procurement VP has communicated a required transition timeline of 4 months, citing inventory planning constraints. Customer B's engineering team has assessed the NVX scope and stated that 9 months is the minimum viable timeline given LFP validation and certification requirements. The two positions have not been reconciled. No formal agreement on transition timeline has been reached. KreegCo has continued planning against the 9-month schedule while the customer-side position remains unresolved.
 
-**Customer C: Harbor Ground Support**
-- Application: electric ground support vehicle
-- SKU required: MKR (no Bluetooth)
-- Annual volume: approximately 350 units
-- Contract terms: 45-day notice clause. No formal monetary penalty; breach triggers Customer C's right of early termination.
-- Qualification requirement: bench validation only. Estimated 2–3 weeks once sample units are received.
-- Stakeholder note: Customer C's primary stakeholder has repeatedly objected to the SBR transition, stating a preference for KreegCo to continue SBR production. Customer C's engineering lead understands the EOL situation and supports the MKR transition. The two contacts are not aligned, and this friction has already slowed internal communications. Qualification sign-off requires approval from the primary stakeholder.
-
-**Customer D: Pinnacle Utility Vehicles**
-- Application: electric utility and maintenance vehicle
-- SKU required: MKR (no Bluetooth, with CAN bus interface)
-- Annual volume: approximately 700 units
-- Contract terms: master supply agreement requires 90-day notice of product changes. No explicit penalty clause.
-- Qualification requirement: bench and vehicle validation, plus CAN bus integration test with Customer D's fleet management software. Estimated 5–6 weeks once sample units are received. Customer D's fleet management software vendor has not yet provided the CAN protocol specification to KreegCo.
+**Customer C: Alpine Industrial Equipment**
+- Application: electric pallet movers and material handling
+- Annual volume: approximately 300 units
+- Contract terms: 30-day written notice required before any product change.
+- Qualification requirement: bench validation only. Estimated 4 weeks once samples received.
 
 ---
 
 ## Timeline and Milestones
 
 **Project start:** Month 0
-**Hard deadline:** Month 10 (SBR component inventory exhausted)
+**Hard deadline:** Month 9 (CBM-3 component inventory exhausted)
 
 | Milestone | Target | Notes |
 |-----------|--------|-------|
-| Hardware design complete | Month 2 | Includes schematic, layout, BOM |
-| Enclosure tooling order placed | Month 1 | 6–10 week lead time; must not slip |
-| PCB fabrication and assembly (proto units) | Month 3 | First article build |
-| Firmware bring-up complete | Month 3.5 | Basic functionality on proto hardware |
-| Internal validation complete | Month 4 | All internal test criteria met |
-| FCC pre-certification testing | Month 4 | MKR-BT only. External test lab. |
-| FCC submission | Month 5 | Contingent on pre-cert results |
-| FCC grant received | Month 7 | Target. Timeline outside KreegCo control. |
-| OEM sample units shipped | Month 5.5 | MKR and CAN samples. MKR-BT samples contingent on FCC. |
-| Customer A qualification complete | Month 7.5 | Meridian Industrial Vehicles |
-| Customer B qualification complete | Month 9.5 | Apex Electric Platforms — 8–10 week window after FCC-gated sample delivery |
-| Customer C qualification complete | Month 6 | Harbor Ground Support |
-| Customer D qualification complete | Month 7.5 | Pinnacle Utility Vehicles |
-| Production build complete | Month 9 | First production run |
-| SBR cutover complete | Month 10 | All customers transitioned to MKR |
+| Hardware design complete | Month 1.5 | Includes schematic, layout, BOM |
+| Enclosure tooling order placed | Month 1 | 6–8 week lead time |
+| LFP cell samples sourced for characterization | Month 1.5 | Cell supplier not yet confirmed |
+| PCB fabrication and assembly (proto) | Month 3 | First article build |
+| NMC firmware validation complete | Month 4 | Internal test criteria |
+| LFP thermal characterization testing begin | Month 4 | No internal precedent; scope and duration uncertain |
+| LFP firmware validation complete | Month 4.5 | Contingent on thermal model accuracy; acceptance criteria undefined |
+| IEC 62133-2 pre-test with external lab | Month 5.5 | External lab not yet selected or engaged |
+| IEC 62133-2 formal submission | Month 6 | Contingent on pre-test results |
+| OEM sample units shipped (Customer C) | Month 5 | Bench-only customer, earliest qual path |
+| OEM sample units shipped (Customers A and B) | Month 6.5 | After IEC pre-test milestone |
+| IEC 62133-2 certificate received | Month 7.5 | Target. Timeline outside KreegCo control. |
+| Customer C qualification complete | Month 7 | Alpine Industrial Equipment |
+| Customer B qualification complete | Month 8 | Meridian Fleet Technologies — timeline alignment unresolved |
+| Customer A qualification complete | Month 8.5 | Summit Power Systems — contingent on IEC cert |
+| Production build complete | Month 8.5 | First production run |
+| CBM-3 cutover complete | Month 9 | All customers transitioned to NVX |
 
 ---
 
 ## Resource Plan
 
-**Engineering lead:** Director of Engineering
-Primary designer for hardware and firmware. No dedicated project engineering resource. Engineering lead is shared with ongoing production support, warranty escalations, and two other active development projects — one of which is currently in pre-production validation and requires active engineering involvement through Month 2.
+**Engineering lead:** Hardware Engineer
+Primary designer for NVX hardware. No prior BMS certification experience. No prior LFP implementation experience. Sole dedicated technical resource on this project.
 
-**Operations/PM:** Director of Sales and Operations
-Owns customer communication, contract management, qualification coordination, and overall project timeline.
+**Firmware Engineer:** 60% allocation through Month 5, then reassigned.
+Responsible for BQ76952 driver development, cell chemistry firmware, and SoC estimation algorithms. Shared with an active pre-production project that requires full engineering attention from Month 5 onward. Remaining firmware work after Month 5 falls to the hardware engineer, who has limited firmware development experience.
 
-**Manufacturing:** Production team
-Responsible for prototype assembly, first article build, and production ramp. Capacity has not been formally reserved for MKR builds. Scheduling is managed alongside existing production orders.
+**Operations/PM:** Director of Operations
+**Manufacturing:** Production team (capacity not formally reserved)
 
 **External resources:**
-- PCB contract manufacturer (Shenzhen, China): KreegCo's standard vendor for PCB fabrication and SMT assembly. Prototype lead times approximately 3–4 weeks from Gerber submission.
-- Enclosure moulder: new injection mould tooling required. Vendor not yet selected. Tooling lead times typically 6–10 weeks.
-- FCC test lab: external lab required for Bluetooth pre-certification testing and formal submission. Lab has not been selected or scheduled.
-- Component suppliers: STM32G474RET6, DRV8353RS, and WSP4953 have been identified and specified. Purchase orders have not been placed. WSP4953 (Onsemi) carries a 26-week lead time for orders exceeding 200 units. Quantities of 200 units or fewer are available at standard lead times and are sufficient for prototype and validation builds. Production run quantities will require a separate order placed well in advance.
+- PCB contract manufacturer (Shenzhen, China): standard vendor
+- Enclosure moulder: new tooling required. Vendor not yet selected.
+- IEC 62133-2 certification body: not yet selected or engaged. Typical engagement lead time 3–4 weeks; test and review cycle 6–8 weeks after sample submission.
+- LFP cell supplier for validation samples: CATL and EVE Energy are under consideration. No PO placed. Both are China-based manufacturers. No alternative non-China supplier has been evaluated.
+- Component suppliers: BQ76952 (TI) available at standard lead times. STM32G071CBT6 available at standard lead times.
 
 ---
 
 ## Budget
 
-A project budget of $170,000 has been approved by the owner. This figure is a hard cap. The owner has stated that overruns will not be approved without a formal scope change request, which requires owner sign-off and a minimum five-business-day review cycle.
+A project budget of $185,000 has been approved by the owner. This is a hard cap.
 
-Known cost categories within the approved budget:
-- Enclosure injection mould tooling: $30,000 (fixed, committed cost)
-- PCB fabrication and SMT assembly (prototype and first production run)
-- Component procurement including safety stock
-- FCC pre-certification testing and certification filing fees (estimated $8,000–$15,000 depending on lab and test scope)
-- Customer sample units (4 customers, approximately 2–4 units each)
+Known cost categories:
+- Enclosure injection mould tooling: $28,000 (fixed, committed cost)
+- IEC 62133-2 testing and certification: estimated $12,000–$20,000
+- LFP thermal characterization testing: estimated $8,000–$14,000 (not formally scoped; external test facility may be required)
+- PCB fabrication, SMT assembly (prototype and first production run)
+- Component procurement and safety stock
+- Customer sample units (3 customers)
 - Engineering time (internal, not separately budgeted)
 
-No contingency line has been allocated within the $170,000. The mould tooling commitment leaves $140,000 for all remaining project costs.
+No contingency line has been allocated within the $185,000. The mould tooling commitment leaves $157,000 for all remaining costs. IEC testing and LFP characterization alone could consume $34,000 at high-end estimates, representing 22% of remaining budget against zero formal contingency.
 
 ---
 
 ## Known Constraints
 
-The following are known at project start. This list is not exhaustive.
-
-- 10-month hard deadline is fixed. It is driven by physical SBR inventory, not a business preference.
-- Engineering lead has no dedicated capacity for this project and carries a competing pre-production commitment through at least Month 2.
-- CAN bus interface is a new capability not present on the SBR. Customer D's fleet management software vendor has not provided the CAN protocol specification; acceptance criteria for the CAN integration test have not been defined.
-- FCC certification is required for the MKR-BT SKU. Timeline is outside KreegCo control.
+- 9-month hard deadline is fixed. Driven by CBM-3 component inventory.
+- LFP cell chemistry support is a first-time implementation for KreegCo. Thermal models, balancing algorithms, and SoC estimation have no internal reference.
+- LFP thermal runaway protection acceptance criteria have not been defined. The IEC 62133-2 certification body will define test parameters during the engagement — scope is not known in advance.
+- Firmware engineer departs project at Month 5. Remaining firmware work transfers to hardware engineer with limited firmware experience.
+- IEC 62133-2 certification timeline is outside KreegCo control and is on the critical path for Customer A.
+- Customer B timeline alignment is unresolved. Procurement VP's 4-month position is incompatible with the project schedule.
+- EU Battery Regulation (EU) 2023/1542 enters its enforcement phase during the project window. Full impact on NVX compliance scope has not been assessed. Regulation may require additional documentation or design changes not currently scoped.
+- LFP cell supply is concentrated among Chinese manufacturers. No non-China cell source has been evaluated.
 
 ---
 
 ## Success Criteria
 
-- MKR-BT and MKR in production and shipping to all four OEM customers before SBR component inventory reaches zero
-- All four customers have completed qualification and issued production approval before cutover date
-- FCC grant received for MKR-BT before MKR-BT ships to production customers
+- NVX in production and shipping to all three OEM customers before CBM-3 component inventory reaches zero
+- IEC 62133-2 certificate received before any unit ships to Customer A's EU or Australian distributors
+- All three customers have completed qualification and issued production approval before cutover
 - No contract penalties triggered
-- Form factor constraints met for all customers with no contract amendments required
-- CAN bus interface validated by Customer D before cutover
-- Manufacturing defect rate lower than SBR baseline
+- LFP and NMC chemistry profiles validated to internal and customer acceptance criteria
+- Form factor constraints met for all customers
+- Customer B transition timeline formally agreed before production approval
