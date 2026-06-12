@@ -78,8 +78,8 @@ The project context is already loaded. Drop this folder into a Claude Project an
 
 RIPPER will return a scored risk register with full rationale and mitigation recommendations — no additional input needed.
 
-**Project loaded:** MKR Motor Controller Development and SBR Migration — KreegCo.
-A controller replacement project driven by component end-of-life, with an 8-month hard deadline, four OEM customers with active contract penalty clauses, FCC certification required for one SKU, and a single engineering lead with no dedicated project capacity.
+**Project loaded:** NVX Battery Management System Development and CBM-3 Migration — KreegCo.
+A BMS replacement project driven by component end-of-life, with a 9-month hard deadline, three OEM customers with active contract penalty clauses, IEC 62133-2 certification required for EU and Australian markets, a first-time LFP cell chemistry implementation with no internal reference, a firmware engineer who exits the project at Month 5, an unresolved customer timeline conflict, and a hard budget cap with no contingency allocated.
 
 ---
 
