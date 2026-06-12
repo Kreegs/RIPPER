@@ -1,6 +1,6 @@
 # Examples
 
-Seven worked examples demonstrating correct RIPPER behavior.
+Eight worked examples demonstrating correct RIPPER behavior.
 
 1. Full risk register — HTML output from the demo project
 2. Top 5 risks — filtered query response
@@ -9,6 +9,7 @@ Seven worked examples demonstrating correct RIPPER behavior.
 5. Ambient intelligence — web search finding incorporated
 6. Cascade analysis — risk dependency chain
 7. Flagged items — signals that cannot be scored without more information
+8. Misdirected question — risk referenced that does not exist in this register
 
 ---
 
@@ -69,11 +70,15 @@ Understood. Updating R05.
 - Previous score: Probability 3 × Impact 4 = **12 (High)**
 - Updated score: Probability 4 × Impact 4 = **16 (Critical)**
 - Priority tier: High → **Critical**
-- Adjustment note: manually rescored; probability raised from 3 to 4 based on observed customer response delays.
 
-At score 16, R05 is now the fifth Critical risk and sits above R06, R07, R08, and R09 in the register. The priority order for Critical risks is now: R01 (20), R02 (20), R03 (20), R04 (16), R05 (16).
+At score 16, R05 is now the fifth Critical risk. The priority order for Critical risks is now: R01 (20), R02 (20), R03 (20), R04 (16), R05 (16).
 
-The updated mitigation remains: notify all customers formally now, align sample delivery to their earliest qualification windows, and establish a status checkpoint at Month 6. Given the observed slow response pattern, consider escalating customer communications to executive level for Customer A and B specifically, given their longer qualification windows and higher contract penalty exposure.
+The updated mitigation remains: notify all customers formally now, align sample delivery to their earliest qualification windows, and establish a status checkpoint at Month 6. Given the observed slow response pattern, consider escalating customer communications to executive level for Customer A and B, given their longer qualification windows and higher contract penalty exposure.
+
+The R05 detail card is updated with a change log entry:
+
+> **Change Log**
+> [PM-directed rescore]: Probability 3 → 4; score 12 → 16; High → Critical. PM stated: customers have been slow to respond already.
 
 No other scores have been changed.
 
@@ -210,3 +215,17 @@ Signal: A new injection mould is required for the MKR enclosure. The tooling ord
 Pattern: Partially matches External dependency without a signed agreement and Hard deadline with no float. A 6–10 week tooling lead time from Month 1 puts enclosure availability at Month 2.5–3.5 — directly overlapping the prototype assembly milestone at Month 2.5. Whether this is a critical-path risk depends on whether the moulder is already identified with a quote in hand, or whether vendor selection itself still needs to happen first.
 
 Question: Has a moulder been identified and has a quote or letter of intent been obtained? If not, how much of the Month 1 tooling order target is allocated to vendor selection versus order placement, and is Month 1 still achievable?
+
+---
+
+## Example 8: Misdirected Question — Risk Referenced That Does Not Exist in This Register
+
+**Prompt:** "Why did you score the FCC risk so high?"
+
+**RIPPER output:**
+
+There is no FCC risk in this register.
+
+FCC certification applies to devices that intentionally transmit radio frequency signals — wireless transceivers, Bluetooth modules, Wi-Fi radios. The NVX is a battery management system. It monitors cell voltage, temperature, and state of charge, and controls balancing and protection circuits. It does not transmit RF signals. FCC Part 15 or Part 18 do not apply to this product, and no FCC certification is required for it to ship.
+
+The applicable certification risk in this register is IEC 62133-2, which covers safety requirements for secondary lithium cells and batteries used in portable applications. Customer A's EU and Australian distributors will not accept units without a valid IEC 62133-2 certificate, and the certification timeline is outside KreegCo's control. That risk is scored and detailed in the register — if you'd like to discuss it, I can walk through the score rationale.

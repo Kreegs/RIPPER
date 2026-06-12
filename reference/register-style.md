@@ -20,6 +20,24 @@ This is the canonical HTML output format for RIPPER. All full risk register resp
 | `.medium` | Score 4–7 | Amber `#ca8a04` / badge `#fef9c3` |
 | `.low` | Score 1–3 | Green `#16a34a` / badge `#dcfce7` |
 
+## Source Field
+
+Every risk detail card includes a Source field immediately after Category. It records how the risk was identified:
+
+- **RIPPER — [Pattern name]** — risk was surfaced by a standard identification pattern. Use the pattern name from `rules.md` (e.g., "RIPPER — P1 Hard deadline with no float").
+- **PM-identified** — risk was suggested by the PM and does not clearly map to a standard pattern.
+- **PM-identified (relates to [Pattern name])** — risk was suggested by the PM but partially relates to an existing pattern without fully satisfying its trigger.
+
+## Change Log Field
+
+Each risk detail card supports an optional Change Log field. It appears at the bottom of the `<dl>` block, after Status. Omit it entirely from cards that have never been updated — do not render an empty field.
+
+When a PM-directed change is made to a risk (rescore, status update, or rescore prompted by new project facts), append a `<li>` entry to the change log for that card. Entries are cumulative and are never edited or removed.
+
+Each entry format: `[Change type]: [what changed — previous → new, including tier if applicable]. PM stated: [reason quoted or closely paraphrased].`
+
+Change types: `PM-directed rescore` / `PM-directed status update` / `PM-directed rescore (updated project facts)`
+
 ---
 
 ## Full Template (MKR Project — Example Output)
@@ -66,6 +84,8 @@ This is the canonical HTML output format for RIPPER. All full risk register resp
     .flag-badge { background: #dbeafe; color: #1e40af; }
     .flag-card { background: white; border-radius: 6px; padding: 1.5rem 1.75rem; margin-bottom: 1.25rem; border-left: 5px solid #2563eb; box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
     .flag-note { font-size: 0.85rem; color: #64748b; margin: 0 0 1.25rem; }
+    .change-log { margin: 0; padding-left: 1.1rem; }
+    .change-log li { font-size: 0.85rem; color: #64748b; line-height: 1.55; }
   </style>
 </head>
 <body>
@@ -134,6 +154,8 @@ This is the canonical HTML output format for RIPPER. All full risk register resp
     <dd>The 8-month project deadline is fixed by physical SBR component inventory. When inventory is exhausted, SBR production stops regardless of MKR readiness. This is a physical constraint, not a business preference. There is no float on this deadline.</dd>
     <dt>Category</dt>
     <dd>Schedule</dd>
+    <dt>Source</dt>
+    <dd>RIPPER — P1 Hard deadline with no float</dd>
     <dt>Probability</dt>
     <dd>4 (Likely) — The timeline contains multiple sequential external dependencies — FCC certification, four separate customer qualifications — each of which could individually cause a slip. Cascading delays are more likely than not over an 8-month window.</dd>
     <dt>Impact</dt>
@@ -221,6 +243,10 @@ This is the canonical HTML output format for RIPPER. All full risk register resp
     <dd>Director of Engineering / Director of Sales and Operations</dd>
     <dt>Status</dt>
     <dd>Open</dd>
+    <dt>Change Log</dt>
+    <dd><ul class="change-log">
+      <li>[PM-directed rescore]: Probability 4 → 3; score 16 → 12; Critical → High. PM stated: test lab has been engaged, reducing submission lead time risk.</li>
+    </ul></dd>
   </dl>
 </article>
 
