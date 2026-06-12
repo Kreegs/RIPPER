@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RIPPER — AI Risk Specialist</title>
+  <style>
+    :root {
+      --violet:       #5B2D8E;
+      --violet-mid:   #7C45B8;
+      --violet-light: #F3EEFF;
+      --tan:          #E8630A;
+      --tan-mid:      #F07830;
+      --tan-light:    #FFF1E8;
+      --aqua:         #0A9BAE;
+      --aqua-mid:     #12B5CA;
+      --aqua-light:   #E8F9FB;
+      --neutral:      #FAFAF8;
+      --text:         #1A1225;
+      --muted:        #6B6080;
+      --border:       #E5E0EE;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; color: var(--text); background: var(--neutral); line-height: 1.6; }
+
+    /* ── NAV ─────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 1.1rem; font-weight: 800; color: var(--violet);
+      letter-spacing: 0.06em; text-decoration: none;
+    }
+    .nav-logo span { color: var(--tan); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      font-size: 0.875rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--violet); }
+    .nav-cta {
+      background: var(--tan); color: white; text-decoration: none;
+      padding: 0.5rem 1.25rem; border-radius: 6px;
+      font-size: 0.875rem; font-weight: 600;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: #c9540a; transform: translateY(-1px); }
+
+    /* ── HERO ────────────────────────────────────── */
+    .hero-bg { background: var(--tan-light); }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 5rem 2rem 4.5rem;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+    .hero-eyebrow {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--tan); margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-size: 3rem; font-weight: 800; color: var(--violet);
+      line-height: 1.15; margin-bottom: 1.25rem;
+    }
+    .hero-title .w {
+      display: inline-block;
+      opacity: 0; transform: translateY(14px);
+      animation: wordIn 0.45s ease forwards;
+    }
+    @keyframes wordIn { to { opacity: 1; transform: translateY(0); } }
+
+    .hero-sub {
+      font-size: 1.05rem; color: var(--muted); margin-bottom: 2rem;
+      line-height: 1.65; max-width: 480px;
+      opacity: 0; animation: fadeUp 0.5s ease 1.1s forwards;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; align-items: center;
+      opacity: 0; animation: fadeUp 0.5s ease 1.3s forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-primary {
+      background: var(--tan); color: white; text-decoration: none;
+      padding: 0.75rem 1.75rem; border-radius: 8px;
+      font-weight: 700; font-size: 0.95rem;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+    }
+    .btn-primary:hover {
+      background: #c9540a; transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(232,99,10,0.28);
+    }
+    .btn-ghost {
+      color: var(--violet); text-decoration: none;
+      font-weight: 600; font-size: 0.95rem;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--violet); }
+
+    /* hero register card */
+    .hero-visual {
+      opacity: 0;
+      animation: fadeUp 0.65s ease 0.7s forwards;
+    }
+    .reg-preview {
+      background: white; border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(91,45,142,0.14), 0 4px 16px rgba(0,0,0,0.07);
+      overflow: hidden; font-size: 0.68rem;
+    }
+    .rp-head {
+      background: #1a1a2e; color: white; padding: 1rem 1.1rem;
+    }
+    .rp-head h4 { font-size: 0.8rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .rp-meta { color: #94a3b8; font-size: 0.63rem; }
+    .rp-badges { display: flex; gap: 0.4rem; margin-top: 0.5rem; align-items: center; }
+    .rb { padding: 0.15rem 0.5rem; border-radius: 3px; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; }
+    .rb.c { background: #fee2e2; color: #991b1b; }
+    .rb.h { background: #ffedd5; color: #9a3412; }
+    .rb.m { background: #fef9c3; color: #854d0e; }
+    .rb.l { background: #dcfce7; color: #166534; }
+    .rp-table { width: 100%; border-collapse: collapse; }
+    .rp-table th {
+      background: #1e293b; color: #e2e8f0;
+      padding: 0.4rem 0.5rem; text-align: left;
+      font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .rp-table td { padding: 0.35rem 0.5rem; border-bottom: 1px solid #f1f5f9; color: #374151; }
+    .rp-table tr:last-child td { border-bottom: none; }
+    .rp-table tr:hover td { background: #f8fafc; }
+    .fw7 { font-weight: 700; }
+
+    /* ── STATS ───────────────────────────────────── */
+    .stats-bg { background: white; border-bottom: 1px solid var(--border); }
+    .stats-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 2.75rem 2rem;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 2rem; text-align: center;
+    }
+    .stat-num {
+      font-size: 2.5rem; font-weight: 800; color: var(--aqua);
+      line-height: 1; display: block;
+    }
+    .stat-lbl {
+      font-size: 0.75rem; color: var(--muted); font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      display: block; margin-top: 0.3rem;
+    }
+
+    /* ── SHARED SECTION STYLES ───────────────────── */
+    .sec { padding: 5rem 2rem; }
+    .sec-inner { max-width: 1200px; margin: 0 auto; }
+    .eyebrow {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--aqua); margin-bottom: 0.6rem;
+    }
+    .sec-title {
+      font-size: 2rem; font-weight: 800; color: var(--violet); margin-bottom: 0.6rem;
+    }
+    .sec-sub {
+      font-size: 0.975rem; color: var(--muted); max-width: 560px;
+      line-height: 1.65; margin-bottom: 3rem;
+    }
+
+    /* scroll reveal */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* ── HOW IT WORKS ────────────────────────────── */
+    .how-bg { background: white; }
+    .how-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+
+    .steps { display: flex; flex-direction: column; }
+    .step {
+      display: flex; gap: 1.25rem; align-items: flex-start;
+      opacity: 0; transform: translateX(-18px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .step.in { opacity: 1; transform: translateX(0); }
+    .step-col { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .step-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--violet); color: white;
+      font-size: 0.82rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 1;
+    }
+    .step-line {
+      width: 2px; height: 50px;
+      background: linear-gradient(to bottom, var(--violet), var(--aqua));
+      opacity: 0.25; margin: 3px 0;
+    }
+    .step:last-child .step-line { display: none; }
+    .step-body { padding-top: 0.35rem; padding-bottom: 1.4rem; }
+    .step-body h4 { font-size: 0.92rem; font-weight: 700; color: var(--violet); margin-bottom: 0.2rem; }
+    .step-body p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+
+    /* matrix */
+    .matrix-wrap {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.5s ease 0.15s, transform 0.5s ease 0.15s;
+    }
+    .matrix-wrap.in { opacity: 1; transform: translateY(0); }
+    .matrix-ttl {
+      font-size: 0.72rem; font-weight: 700; color: var(--violet);
+      text-transform: uppercase; letter-spacing: 0.06em;
+      text-align: center; margin-bottom: 1.1rem;
+    }
+    .matrix-shell { display: flex; gap: 0.5rem; align-items: center; }
+    .matrix-ylabel {
+      writing-mode: vertical-rl; transform: rotate(180deg);
+      font-size: 0.62rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600;
+      white-space: nowrap;
+    }
+    .matrix-body { flex: 1; }
+    .mgrid {
+      display: grid; grid-template-columns: 22px repeat(5, 1fr); gap: 3px;
+    }
+    .mrlbl {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.62rem; font-weight: 700; color: var(--muted);
+    }
+    .mcell {
+      aspect-ratio: 1; border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.62rem; font-weight: 700;
+      background: #f1f5f9; color: transparent;
+      transition: background 0.3s ease, color 0.3s ease;
+      min-height: 34px;
+    }
+    .mcell.fl  { background: #dcfce7; color: #166534; }
+    .mcell.fm  { background: #fef9c3; color: #854d0e; }
+    .mcell.fh  { background: #ffedd5; color: #9a3412; }
+    .mcell.fc  { background: #fee2e2; color: #991b1b; }
+
+    .mxlbls { display: grid; grid-template-columns: 22px repeat(5, 1fr); gap: 3px; margin-top: 4px; }
+    .mxlbl { text-align: center; font-size: 0.58rem; font-weight: 600; color: var(--muted); }
+    .mxtitle { text-align: center; font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; margin-top: 0.4rem; }
+    .mlegend { display: flex; gap: 0.6rem; margin-top: 0.9rem; flex-wrap: wrap; justify-content: center; }
+    .mleg { display: flex; align-items: center; gap: 0.3rem; font-size: 0.62rem; color: var(--muted); font-weight: 500; }
+    .mleg-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+    /* ── FEATURES ────────────────────────────────── */
+    .feat-bg { background: var(--violet-light); }
+    .feat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+    .feat-card {
+      background: white; border-radius: 10px; padding: 1.75rem 1.5rem;
+      box-shadow: 0 1px 4px rgba(91,45,142,0.07);
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.45s ease, transform 0.45s ease, box-shadow 0.2s;
+    }
+    .feat-card:hover { box-shadow: 0 8px 24px rgba(91,45,142,0.13); transform: translateY(-3px) !important; }
+    .feat-card.in { opacity: 1; transform: translateY(0); }
+    .feat-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--aqua-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; margin-bottom: 1rem;
+    }
+    .feat-card h3 { font-size: 0.9rem; font-weight: 700; color: var(--violet); margin-bottom: 0.4rem; }
+    .feat-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── CATEGORIES ──────────────────────────────── */
+    .cat-bg { background: white; }
+    .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .cat-card {
+      border-radius: 10px; padding: 1.5rem;
+      border-top: 4px solid var(--tan);
+      background: var(--neutral);
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .cat-card.in { opacity: 1; transform: translateY(0); }
+    .cat-icon { font-size: 1.4rem; display: block; margin-bottom: 0.65rem; }
+    .cat-card h3 { font-size: 0.88rem; font-weight: 700; color: var(--violet); margin-bottom: 0.35rem; }
+    .cat-card p { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── DEMO ────────────────────────────────────── */
+    .demo-bg { background: var(--aqua-light); }
+    .demo-frame {
+      background: white; border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(10,155,174,0.15);
+      overflow: hidden; max-height: 520px; overflow-y: auto;
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .demo-frame.in { opacity: 1; transform: translateY(0); }
+    .demo-frame::-webkit-scrollbar { width: 5px; }
+    .demo-frame::-webkit-scrollbar-track { background: #f1f5f9; }
+    .demo-frame::-webkit-scrollbar-thumb { background: var(--aqua); border-radius: 3px; }
+    .demo-bar {
+      background: #1e293b; padding: 0.55rem 0.9rem;
+      display: flex; align-items: center; gap: 0.4rem;
+      position: sticky; top: 0; z-index: 1;
+    }
+    .d-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .demo-fname { font-size: 0.7rem; color: #94a3b8; margin-left: auto; font-family: monospace; }
+
+    /* embedded register */
+    .er { padding: 1.5rem; font-family: system-ui, sans-serif; font-size: 0.8rem; color: #1a1a2e; }
+    .er-head {
+      background: #1a1a2e; color: white;
+      padding: 1.1rem 1.35rem; border-radius: 8px; margin-bottom: 1.5rem;
+    }
+    .er-head h3 { margin: 0 0 0.6rem; font-size: 0.95rem; font-weight: 700; }
+    .er-meta { border-collapse: collapse; font-size: 0.72rem; }
+    .er-meta th { text-align: left; font-weight: 400; padding: 0.08rem 1rem 0.08rem 0; color: #94a3b8; }
+    .er-meta td { color: #e2e8f0; font-weight: 500; }
+    .er-badges { display: flex; gap: 0.5rem; margin-top: 0.65rem; align-items: center; }
+    .er-badge { padding: 0.18rem 0.6rem; border-radius: 3px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; }
+    .er-badge.c { background: #fee2e2; color: #991b1b; }
+    .er-badge.h { background: #ffedd5; color: #9a3412; }
+    .er-h2 { font-size: 0.8rem; color: #1a1a2e; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.3rem; margin: 0 0 0.75rem; }
+    .er-tbl { width: 100%; border-collapse: collapse; font-size: 0.75rem; margin-bottom: 1.5rem; }
+    .er-tbl th { background: #1e293b; color: #e2e8f0; padding: 0.45rem 0.6rem; text-align: left; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .er-tbl td { padding: 0.38rem 0.6rem; border-bottom: 1px solid #e2e8f0; }
+    .er-tbl tr:last-child td { border-bottom: none; }
+    .er-tbl tr:hover td { background: #f8fafc; }
+    .er-card {
+      background: white; border-radius: 6px; padding: 1.1rem 1.25rem;
+      border-left: 5px solid #dc2626;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07); margin-bottom: 0.75rem;
+    }
+    .er-card-head { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.65rem; }
+    .er-dl { display: grid; grid-template-columns: 120px 1fr; gap: 0.35rem 1rem; }
+    .er-dt { font-weight: 600; color: #64748b; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.04em; padding-top: 0.1rem; }
+    .er-dd { margin: 0; font-size: 0.75rem; color: #374151; line-height: 1.5; }
+
+    /* ── INTERACTIONS ────────────────────────────── */
+    .int-bg { background: var(--neutral); }
+    .int-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .int-card {
+      background: white; border-radius: 12px; padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .int-card.in { opacity: 1; transform: translateY(0); }
+    .chat-lbl { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.3rem; }
+    .lbl-u { color: var(--violet); }
+    .lbl-r { color: var(--aqua); }
+    .chat-msg { border-radius: 8px; padding: 0.7rem 0.9rem; font-size: 0.8rem; line-height: 1.55; margin-bottom: 0.75rem; }
+    .chat-msg.prompt { background: var(--violet-light); color: var(--violet); font-weight: 600; border-left: 3px solid var(--violet); }
+    .chat-msg.resp   { background: var(--aqua-light);   color: var(--text);   border-left: 3px solid var(--aqua); font-size: 0.76rem; }
+
+    /* ── CTA ─────────────────────────────────────── */
+    .cta-sec {
+      background: var(--violet); padding: 5rem 2rem; text-align: center;
+    }
+    .cta-sec h2 { font-size: 2.25rem; font-weight: 800; color: white; margin-bottom: 0.75rem; }
+    .cta-sec p  { color: rgba(255,255,255,0.68); font-size: 1rem; margin-bottom: 2rem; }
+    .btn-tan {
+      background: var(--tan); color: white; text-decoration: none;
+      padding: 0.875rem 2.25rem; border-radius: 8px;
+      font-weight: 700; font-size: 1rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-tan:hover { background: #c9540a; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.25); }
+
+    /* future modules */
+    .future-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 3rem; }
+    .fut-card {
+      background: rgba(255,255,255,0.08); border-radius: 8px;
+      padding: 1.1rem 1.25rem; border: 1px solid rgba(255,255,255,0.12);
+      opacity: 0; transform: translateY(14px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .fut-card.in { opacity: 1; transform: translateY(0); }
+    .fut-label { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.35); margin-bottom: 0.3rem; }
+    .fut-card h4 { font-size: 0.82rem; font-weight: 700; color: rgba(255,255,255,0.45); }
+    .fut-card p  { font-size: 0.72rem; color: rgba(255,255,255,0.3); margin-top: 0.25rem; line-height: 1.4; }
+    .module-label {
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: rgba(255,255,255,0.5);
+      margin: 3rem 0 0.75rem; display: block;
+    }
+
+    /* ── FOOTER ──────────────────────────────────── */
+    footer {
+      background: white; border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .f-logo { font-weight: 800; color: var(--violet); font-size: 1rem; letter-spacing: 0.06em; }
+    .f-logo span { color: var(--tan); }
+    .f-note { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; }
+    .f-links { display: flex; gap: 1.5rem; }
+    .f-links a { text-decoration: none; color: var(--muted); font-size: 0.78rem; transition: color 0.2s; }
+    .f-links a:hover { color: var(--violet); }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────── -->
+<nav>
+  <a class="nav-logo" href="#">RIPPER<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#demo">Demo</a></li>
+    <li><a href="#cta">Get Started</a></li>
+  </ul>
+  <a class="nav-cta" href="https://github.com/YOUR-USERNAME/RIPPER" target="_blank">GitHub &rarr;</a>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────── -->
+<div class="hero-bg">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">Risk Identification &middot; Pattern Prediction &middot; Engine Renderer</p>
+      <h1 class="hero-title" id="heroTitle">Your AI Risk Specialist</h1>
+      <p class="hero-sub">Drop your project brief in. Get a fully scored, prioritized risk register — grounded in specific project facts — in seconds. Built for Claude Projects. No setup beyond drag-and-drop.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="https://github.com/YOUR-USERNAME/RIPPER" target="_blank">Get RIPPER on GitHub &rarr;</a>
+        <a class="btn-ghost" href="#demo">See the output &darr;</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="reg-preview">
+        <div class="rp-head">
+          <h4>Project Risk Register &mdash; Top 5 Risks</h4>
+          <div class="rp-meta">MKR Motor Controller Development &mdash; KreegCo &middot; June 2026</div>
+          <div class="rp-badges">
+            <span class="rb c">Critical: 4</span>
+            <span class="rb h">High: 1</span>
+            <span style="font-size:0.58rem;color:#94a3b8;margin-left:4px;">5 shown &middot; 15 total</span>
+          </div>
+        </div>
+        <table class="rp-table">
+          <thead>
+            <tr><th>ID</th><th>Risk</th><th>Cat.</th><th>P</th><th>I</th><th>Score</th><th>Priority</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>R01</td><td>Hard deadline, no float</td><td>Schedule</td><td>4</td><td>5</td><td class="fw7">20</td><td><span class="rb c">Critical</span></td></tr>
+            <tr><td>R02</td><td>Engineering lead: sole designer</td><td>Resource</td><td>4</td><td>5</td><td class="fw7">20</td><td><span class="rb c">Critical</span></td></tr>
+            <tr><td>R03</td><td>Components unordered; 26-wk lead</td><td>External</td><td>4</td><td>5</td><td class="fw7">20</td><td><span class="rb c">Critical</span></td></tr>
+            <tr><td>R04</td><td>FCC cert timeline uncontrolled</td><td>External</td><td>4</td><td>4</td><td class="fw7">16</td><td><span class="rb c">Critical</span></td></tr>
+            <tr><td>R05</td><td>Customer qual driven by customers</td><td>External</td><td>3</td><td>4</td><td class="fw7">12</td><td><span class="rb h">High</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── STATS ─────────────────────────────────────────── -->
+<div class="stats-bg">
+  <div class="stats-inner" id="stats">
+    <div>
+      <span class="stat-num" data-target="6">0</span>
+      <span class="stat-lbl">Risk Categories</span>
+    </div>
+    <div>
+      <span class="stat-num" data-target="12">0</span>
+      <span class="stat-lbl">Identification Patterns</span>
+    </div>
+    <div>
+      <span class="stat-num" data-target="25">0</span>
+      <span class="stat-lbl">Max Risk Score</span>
+    </div>
+    <div>
+      <span class="stat-num" data-target="4">0</span>
+      <span class="stat-lbl">Priority Tiers</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── HOW IT WORKS ──────────────────────────────────── -->
+<div class="how-bg">
+  <section class="sec" id="how">
+    <div class="sec-inner">
+      <div class="reveal">
+        <p class="eyebrow">Process</p>
+        <h2 class="sec-title">How RIPPER works</h2>
+        <p class="sec-sub">Five steps from project brief to actionable risk register. No prompting required &mdash; just ask.</p>
+      </div>
+      <div class="how-grid">
+        <div class="steps" id="stepsRoot">
+          <div class="step">
+            <div class="step-col"><div class="step-num">1</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Load project context</h4>
+              <p>Drop the RIPPER folder into a Claude Project. The project brief, scoring rules, and identification patterns load automatically &mdash; no copy-pasting required.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-col"><div class="step-num">2</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Identify risks</h4>
+              <p>RIPPER scans the project brief against 12 identification patterns across 6 risk categories: schedule, budget, scope, resource, technical, and external.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-col"><div class="step-num">3</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Score each risk</h4>
+              <p>Every risk is scored on Probability (1&ndash;5) &times; Impact (1&ndash;5), with rationale grounded in specific project facts &mdash; not generic boilerplate.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-col"><div class="step-num">4</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Generate the register</h4>
+              <p>A structured HTML risk register is produced &mdash; sorted critical first, with detail cards, mitigation recommendations, and contingency plans for every risk.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-col"><div class="step-num">5</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Refine interactively</h4>
+              <p>Challenge a score, add a risk RIPPER missed, mark one as mitigated, or ask what-if questions. RIPPER updates the register through conversation.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="matrix-wrap" id="matrixWrap">
+          <p class="matrix-ttl">Risk Scoring Matrix &mdash; Probability &times; Impact</p>
+          <div class="matrix-shell">
+            <div class="matrix-ylabel">Probability</div>
+            <div class="matrix-body">
+              <div class="mgrid" id="mgrid">
+                <div class="mrlbl">5</div>
+                <div class="mcell" data-t="fm">5</div><div class="mcell" data-t="fh">10</div><div class="mcell" data-t="fc">15</div><div class="mcell" data-t="fc">20</div><div class="mcell" data-t="fc">25</div>
+                <div class="mrlbl">4</div>
+                <div class="mcell" data-t="fm">4</div><div class="mcell" data-t="fh">8</div><div class="mcell" data-t="fh">12</div><div class="mcell" data-t="fc">16</div><div class="mcell" data-t="fc">20</div>
+                <div class="mrlbl">3</div>
+                <div class="mcell" data-t="fl">3</div><div class="mcell" data-t="fm">6</div><div class="mcell" data-t="fh">9</div><div class="mcell" data-t="fh">12</div><div class="mcell" data-t="fc">15</div>
+                <div class="mrlbl">2</div>
+                <div class="mcell" data-t="fl">2</div><div class="mcell" data-t="fm">4</div><div class="mcell" data-t="fm">6</div><div class="mcell" data-t="fh">8</div><div class="mcell" data-t="fh">10</div>
+                <div class="mrlbl">1</div>
+                <div class="mcell" data-t="fl">1</div><div class="mcell" data-t="fl">2</div><div class="mcell" data-t="fl">3</div><div class="mcell" data-t="fm">4</div><div class="mcell" data-t="fm">5</div>
+              </div>
+              <div class="mxlbls">
+                <div></div>
+                <div class="mxlbl">1</div><div class="mxlbl">2</div><div class="mxlbl">3</div><div class="mxlbl">4</div><div class="mxlbl">5</div>
+              </div>
+              <div class="mxtitle">Impact</div>
+              <div class="mlegend">
+                <div class="mleg"><div class="mleg-dot" style="background:#dcfce7"></div>Low (1&ndash;3)</div>
+                <div class="mleg"><div class="mleg-dot" style="background:#fef9c3"></div>Medium (4&ndash;7)</div>
+                <div class="mleg"><div class="mleg-dot" style="background:#ffedd5"></div>High (8&ndash;14)</div>
+                <div class="mleg"><div class="mleg-dot" style="background:#fee2e2"></div>Critical (15&ndash;25)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── FEATURES ──────────────────────────────────────── -->
+<div class="feat-bg">
+  <section class="sec" id="features">
+    <div class="sec-inner">
+      <div class="reveal">
+        <p class="eyebrow">Capabilities</p>
+        <h2 class="sec-title">Built to make decisions, not ask for them</h2>
+        <p class="sec-sub">Every design choice removes friction. RIPPER acts on clear intent &mdash; no hand-holding, no clarifying questions before it produces output.</p>
+      </div>
+      <div class="feat-grid">
+        <div class="feat-card" data-d="0">
+          <div class="feat-icon">&#128269;</div>
+          <h3>Pattern-Based Identification</h3>
+          <p>12 identification patterns detect risk across 6 categories. Each pattern maps to a score range, then calibrates against project-specific signals.</p>
+        </div>
+        <div class="feat-card" data-d="1">
+          <div class="feat-icon">&#128202;</div>
+          <h3>Scored &amp; Prioritized</h3>
+          <p>Every risk gets a Probability &times; Impact score (1&ndash;25) with four priority tiers. The register sorts critical-first automatically.</p>
+        </div>
+        <div class="feat-card" data-d="2">
+          <div class="feat-icon">&#128172;</div>
+          <h3>Interactive Refinement</h3>
+          <p>Challenge a score, add a missed risk, mark one mitigated, or run what-if scenarios. The register updates in real time through conversation.</p>
+        </div>
+        <div class="feat-card" data-d="3">
+          <div class="feat-icon">&#128196;</div>
+          <h3>HTML Output, Zero Dependencies</h3>
+          <p>The register is a self-contained HTML file with inline styles. No external stylesheets, no frameworks. Open it in any browser and it works.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── CATEGORIES ────────────────────────────────────── -->
+<div class="cat-bg">
+  <section class="sec" id="categories">
+    <div class="sec-inner">
+      <div class="reveal">
+        <p class="eyebrow">Coverage</p>
+        <h2 class="sec-title">Six categories. One specialist.</h2>
+        <p class="sec-sub">RIPPER identifies risks across every dimension of a project &mdash; not just the obvious schedule and budget concerns.</p>
+      </div>
+      <div class="cat-grid">
+        <div class="cat-card" data-d="0">
+          <span class="cat-icon">&#128197;</span>
+          <h3>Schedule</h3>
+          <p>Hard deadlines, compressed timelines, sequential external dependencies, and milestones with no float or buffer.</p>
+        </div>
+        <div class="cat-card" data-d="1">
+          <span class="cat-icon">&#128176;</span>
+          <h3>Budget</h3>
+          <p>Thin contingency reserves, cost exposure from scope or timeline changes, and underfunded phases of work.</p>
+        </div>
+        <div class="cat-card" data-d="2">
+          <span class="cat-icon">&#128208;</span>
+          <h3>Scope</h3>
+          <p>Technically undefined deliverables, stakeholder misalignment, and elements with no agreed implementation approach.</p>
+        </div>
+        <div class="cat-card" data-d="3">
+          <span class="cat-icon">&#128100;</span>
+          <h3>Resource</h3>
+          <p>Single points of failure on people, shared resources across projects, and key-person dependencies with no backup.</p>
+        </div>
+        <div class="cat-card" data-d="4">
+          <span class="cat-icon">&#9881;&#65039;</span>
+          <h3>Technical</h3>
+          <p>New technology adoption, legacy system integrations, undefined implementation approaches, and unknown complexity.</p>
+        </div>
+        <div class="cat-card" data-d="5">
+          <span class="cat-icon">&#127758;</span>
+          <h3>External</h3>
+          <p>Regulatory approvals, vendor performance, customer-controlled processes, and events outside the project team&rsquo;s control.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── DEMO ──────────────────────────────────────────── -->
+<div class="demo-bg">
+  <section class="sec" id="demo">
+    <div class="sec-inner">
+      <div class="reveal">
+        <p class="eyebrow">Output</p>
+        <h2 class="sec-title">This is what you get</h2>
+        <p class="sec-sub">A self-contained HTML risk register ready for a project kickoff or status report &mdash; no reformatting required.</p>
+      </div>
+      <div class="demo-frame" id="demoFrame">
+        <div class="demo-bar">
+          <div class="d-dot" style="background:#ef4444"></div>
+          <div class="d-dot" style="background:#f59e0b"></div>
+          <div class="d-dot" style="background:#22c55e"></div>
+          <span class="demo-fname">risk-register.html</span>
+        </div>
+        <div class="er">
+          <div class="er-head">
+            <h3>Project Risk Register &mdash; Top 5 Risks</h3>
+            <table class="er-meta">
+              <tr><th>Project</th><td>MKR Motor Controller Development and SBR Migration &mdash; KreegCo</td></tr>
+              <tr><th>Analysis date</th><td>June 2026</td></tr>
+              <tr><th>Input source</th><td>reference/Project-files/demo-project.md</td></tr>
+              <tr><th>Scope</th><td>Five highest-scoring risks &middot; Full register contains 15 identified risks</td></tr>
+            </table>
+            <div class="er-badges">
+              <span class="er-badge c">Critical: 4</span>
+              <span class="er-badge h">High: 1</span>
+              <span style="font-size:0.65rem;color:#94a3b8;margin-left:6px;">5 risks shown</span>
+            </div>
+          </div>
+
+          <h4 class="er-h2">Risk Summary</h4>
+          <table class="er-tbl">
+            <thead>
+              <tr><th>ID</th><th>Risk Description</th><th>Category</th><th>P</th><th>I</th><th>Score</th><th>Priority</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>R01</td><td>8-month hard deadline with no float</td><td>Schedule</td><td>4</td><td>5</td><td class="fw7">20</td><td><span class="er-badge c">Critical</span></td><td>Open</td></tr>
+              <tr><td>R02</td><td>Engineering lead: sole designer, no dedicated capacity</td><td>Resource</td><td>4</td><td>5</td><td class="fw7">20</td><td><span class="er-badge c">Critical</span></td><td>Open</td></tr>
+              <tr><td>R03</td><td>Key components not ordered; 26-week lead time on WSP4953</td><td>External</td><td>4</td><td>5</td><td class="fw7">20</td><td><span class="er-badge c">Critical</span></td><td>Open</td></tr>
+              <tr><td>R04</td><td>FCC certification timeline outside KreegCo control</td><td>External</td><td>4</td><td>4</td><td class="fw7">16</td><td><span class="er-badge c">Critical</span></td><td>Open</td></tr>
+              <tr><td>R05</td><td>Customer qualification timelines driven by customers, not KreegCo</td><td>External</td><td>3</td><td>4</td><td class="fw7">12</td><td><span class="er-badge h">High</span></td><td>Open</td></tr>
+            </tbody>
+          </table>
+
+          <h4 class="er-h2">Risk Details</h4>
+
+          <div class="er-card">
+            <div class="er-card-head">
+              <span class="er-badge c">Critical &mdash; Score 20</span>
+              <strong style="font-size:0.83rem;">R01 &mdash; 8-month hard deadline with no float</strong>
+            </div>
+            <dl class="er-dl">
+              <dt class="er-dt">Description</dt>
+              <dd class="er-dd">The 8-month deadline is fixed by physical SBR component inventory exhaustion. When inventory is gone, production stops regardless of MKR readiness. This is a physical constraint, not a business preference. There is no float on this deadline.</dd>
+              <dt class="er-dt">Category</dt><dd class="er-dd">Schedule</dd>
+              <dt class="er-dt">Probability</dt>
+              <dd class="er-dd">4 (Likely) &mdash; Multiple sequential external dependencies &mdash; FCC certification, four separate customer qualifications &mdash; each of which could individually cause a slip. Cascading delays are more likely than not over an 8-month window.</dd>
+              <dt class="er-dt">Impact</dt>
+              <dd class="er-dd">5 (Critical) &mdash; If MKR is not production-ready before SBR inventory is exhausted, KreegCo cannot fulfill orders for any of the four OEM customers, triggering contract penalties and supply disruption.</dd>
+              <dt class="er-dt">Mitigation</dt>
+              <dd class="er-dd">Build a full project schedule mapping all milestones against the Month 10 constraint. Target Month 9 as the internal completion gate. Identify the critical path now.</dd>
+              <dt class="er-dt">Contingency</dt>
+              <dd class="er-dd">If a slip becomes likely, prioritize customers with shortest qualification lead times (Customer C &mdash; 2&ndash;3 weeks) for earliest cutover.</dd>
+              <dt class="er-dt">Owner</dt><dd class="er-dd">Director of Sales and Operations</dd>
+              <dt class="er-dt">Status</dt><dd class="er-dd">Open</dd>
+            </dl>
+          </div>
+
+          <div class="er-card">
+            <div class="er-card-head">
+              <span class="er-badge c">Critical &mdash; Score 20</span>
+              <strong style="font-size:0.83rem;">R02 &mdash; Engineering lead is sole designer with no dedicated capacity</strong>
+            </div>
+            <dl class="er-dl">
+              <dt class="er-dt">Description</dt>
+              <dd class="er-dd">The Director of Engineering is the sole hardware and firmware designer while simultaneously owning production support, warranty escalations, and two other active development projects.</dd>
+              <dt class="er-dt">Category</dt><dd class="er-dd">Resource</dd>
+              <dt class="er-dt">Probability</dt>
+              <dd class="er-dd">4 (Likely) &mdash; Four concurrent responsibilities over a 10-month timeline makes capacity conflicts highly probable. Any production escalation will compete directly with MKR milestone work.</dd>
+              <dt class="er-dt">Impact</dt>
+              <dd class="er-dd">5 (Critical) &mdash; Hardware design, PCB layout, and firmware development cannot proceed without this individual. Delay cascades to every downstream milestone including FCC testing and customer samples.</dd>
+              <dt class="er-dt">Mitigation</dt>
+              <dd class="er-dd">Formally allocate a defined percentage of this individual&rsquo;s capacity to MKR. Identify contract engineering options before one is needed under timeline pressure.</dd>
+              <dt class="er-dt">Owner</dt><dd class="er-dd">Owner (project sponsor)</dd>
+              <dt class="er-dt">Status</dt><dd class="er-dd">Open</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── INTERACTIONS ───────────────────────────────────── -->
+<div class="int-bg">
+  <section class="sec" id="interactions">
+    <div class="sec-inner">
+      <div class="reveal">
+        <p class="eyebrow">Conversations</p>
+        <h2 class="sec-title">Refine through conversation</h2>
+        <p class="sec-sub">The register isn&rsquo;t static. Ask follow-up questions, challenge scores, and update status &mdash; RIPPER responds and reflects every change.</p>
+      </div>
+      <div class="int-grid">
+        <div class="int-card" data-d="0">
+          <p class="chat-lbl lbl-u">You</p>
+          <div class="chat-msg prompt">&ldquo;What are the top 5 risks for this project?&rdquo;</div>
+          <p class="chat-lbl lbl-r">RIPPER</p>
+          <div class="chat-msg resp">
+            The five highest-scored risks for the MKR project are:<br><br>
+            <strong>R01</strong> &mdash; 8-month hard deadline, no float | Schedule | Score: 20 (Critical)<br>
+            The deadline is physical &mdash; SBR inventory exhaustion, not a business preference. Multiple sequential external dependencies make a slip likely without active management.<br><br>
+            <strong>R02</strong> &mdash; Engineering lead: sole designer | Resource | Score: 20 (Critical)<br>
+            Single point of failure across hardware and firmware with four concurrent responsibilities over the project window&hellip;
+          </div>
+        </div>
+        <div class="int-card" data-d="1">
+          <p class="chat-lbl lbl-u">You</p>
+          <div class="chat-msg prompt">&ldquo;Rescore R04 &mdash; probability 3, impact 4. We&rsquo;ve already engaged the test lab.&rdquo;</div>
+          <p class="chat-lbl lbl-r">RIPPER</p>
+          <div class="chat-msg resp">
+            <strong>R04 updated.</strong><br><br>
+            FCC Certification Timeline &mdash; previous score: <strong>16 (Critical, P4 &times; I4)</strong>.<br>
+            New score: <strong>12 (High, P3 &times; I4)</strong>. Manual adjustment &mdash; test lab engagement reduces submission lead time risk, lowering probability from Likely to Possible.<br><br>
+            R04 moves from Critical to High. Register reordered. R05 is now the fifth-ranked risk at Score 12.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── CTA ───────────────────────────────────────────── -->
+<section class="cta-sec" id="cta">
+  <div class="reveal" style="max-width:700px;margin:0 auto;">
+    <h2>Ready to manage risk like a specialist?</h2>
+    <p>Drop it into a Claude Project. Ask a question. Get a register.</p>
+    <a class="btn-tan" href="https://github.com/YOUR-USERNAME/RIPPER" target="_blank">Get RIPPER on GitHub &rarr;</a>
+    <span class="module-label">What&rsquo;s coming next &mdash; planned PM agent modules</span>
+  </div>
+  <div class="future-grid" style="max-width:900px;margin:0 auto;" id="futureGrid">
+    <div class="fut-card" data-d="0">
+      <div class="fut-label">Module 2 &mdash; Coming Soon</div>
+      <h4>Schedule Analyst</h4>
+      <p>Critical path identification, milestone tracking, and timeline variance analysis.</p>
+    </div>
+    <div class="fut-card" data-d="1">
+      <div class="fut-label">Module 3 &mdash; Coming Soon</div>
+      <h4>Budget Tracker</h4>
+      <p>Cost variance monitoring, contingency burn rate, and budget exposure forecasting.</p>
+    </div>
+    <div class="fut-card" data-d="2">
+      <div class="fut-label">Module 4 &mdash; Coming Soon</div>
+      <h4>Scope Evaluator</h4>
+      <p>Change request analysis, scope creep detection, and impact assessment.</p>
+    </div>
+    <div class="fut-card" data-d="3">
+      <div class="fut-label">Module 5 &mdash; Coming Soon</div>
+      <h4>Comms Drafter</h4>
+      <p>Stakeholder update drafting, escalation notices, and status report generation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="f-logo">RIPPER<span>.</span></div>
+      <div class="f-note">Module 1 of a planned multi-module PM agent &middot; Built for Claude Projects</div>
+    </div>
+    <div class="f-links">
+      <a href="#how">How It Works</a>
+      <a href="#features">Features</a>
+      <a href="#demo">Demo</a>
+      <a href="#categories">Coverage</a>
+      <a href="https://github.com/YOUR-USERNAME/RIPPER" target="_blank">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Hero word animation ──────────────────────────────────
+(function() {
+  const el = document.getElementById('heroTitle');
+  const words = el.textContent.trim().split(/\s+/);
+  el.innerHTML = words.map((w, i) =>
+    `<span class="w" style="animation-delay:${0.08 + i * 0.13}s">${w}</span>`
+  ).join(' ');
+})();
+
+// ── Intersection Observer helpers ────────────────────────
+function makeIO(cb, opts) {
+  return new IntersectionObserver(cb, Object.assign({ threshold: 0.12 }, opts));
+}
+
+// generic reveal + stagger cards
+const revealIO = makeIO(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const d = parseInt(el.dataset.d || 0);
+    setTimeout(() => el.classList.add('in'), d * 80);
+    revealIO.unobserve(el);
+  });
+});
+document.querySelectorAll('.reveal, .feat-card, .cat-card, .int-card, .fut-card, #demoFrame, .matrix-wrap').forEach(el => revealIO.observe(el));
+
+// steps sequential reveal
+const stepsIO = makeIO(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    document.querySelectorAll('.step').forEach((s, i) => {
+      setTimeout(() => s.classList.add('in'), i * 160);
+    });
+    stepsIO.unobserve(e.target);
+  });
+}, { threshold: 0.08 });
+const stepsRoot = document.getElementById('stepsRoot');
+if (stepsRoot) stepsIO.observe(stepsRoot);
+
+// matrix cell reveal
+const matrixIO = makeIO(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    document.querySelectorAll('.mcell').forEach((c, i) => {
+      setTimeout(() => c.classList.add(c.dataset.t), i * 40);
+    });
+    matrixIO.unobserve(e.target);
+  });
+}, { threshold: 0.25 });
+const mw = document.getElementById('matrixWrap');
+if (mw) matrixIO.observe(mw);
+
+// counter animation
+const counterIO = makeIO(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('[data-target]').forEach(el => {
+      const target = +el.dataset.target;
+      const steps = 36;
+      let i = 0;
+      const tick = setInterval(() => {
+        i++;
+        el.textContent = i >= steps ? target : Math.round((i / steps) * target);
+        if (i >= steps) clearInterval(tick);
+      }, 1100 / steps);
+    });
+    counterIO.unobserve(e.target);
+  });
+}, { threshold: 0.5 });
+const statsEl = document.getElementById('stats');
+if (statsEl) counterIO.observe(statsEl);
+</script>
+</body>
+</html>
